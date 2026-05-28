@@ -1,18 +1,71 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "nah-mean",
-  "version": "0.1.0",
-  "description": "Portable intent alignment skill for ambiguous high-expectation requests.",
+  "version": "0.2.0",
+  "description": "Portable intent alignment skill for ambiguous high-expectation agent requests.",
+  "repository": "https://github.com/handlecusion/nah-mean",
+  "canonical_url": "https://github.com/handlecusion/nah-mean",
+  "homepage": "https://handlecusion.github.io/nah-mean/",
+  "release_url": "https://github.com/handlecusion/nah-mean/releases/tag/v0.2.0",
+  "license": "MIT",
   "languages": ["ko", "en"],
+  "keywords": [
+    "agent-skills",
+    "ai-agents",
+    "codex",
+    "claude-code",
+    "prompt-engineering",
+    "intent-alignment",
+    "geo",
+    "llms.txt"
+  ],
+  "maintainers": [
+    {
+      "name": "handlecusion",
+      "url": "https://github.com/handlecusion"
+    }
+  ],
+  "same_as": [
+    "https://github.com/handlecusion/nah-mean",
+    "https://github.com/handlecusion/nah-mean/releases/tag/v0.2.0",
+    "https://handlecusion.github.io/nah-mean/"
+  ],
+  "skill_path": "skills/nah-mean/SKILL.md",
   "entrypoints": {
     "codex_skill": "skills/nah-mean/SKILL.md",
     "generic_prompt_ko": "prompts/nah-mean.ko.md",
     "generic_prompt_en": "prompts/nah-mean.en.md",
     "generic_adapter": "adapters/generic-agent.md",
     "claude_code_adapter": "adapters/claude-code.md",
-    "hermes_like_adapter": "adapters/hermes-like.md"
+    "hermes_like_adapter": "adapters/hermes-like.md",
+    "ai_discovery": "llms.txt",
+    "ai_discovery_full": "llms-full.txt",
+    "docs_site": "docs/index.html"
   },
   "install": {
-    "codex": "./install.sh",
+    "codex": "gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user",
+    "codex_pinned": "gh skill install handlecusion/nah-mean nah-mean@v0.2.0 --agent codex --scope user",
+    "claude_code": "gh skill install handlecusion/nah-mean nah-mean --agent claude-code --scope user",
+    "skills_cli": "npx skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y",
+    "local": "./install.sh",
     "generic": "Copy one prompt from prompts/ into the agent system/developer instructions."
-  }
+  },
+  "verified_install_commands": [
+    {
+      "command": "gh skill preview handlecusion/nah-mean nah-mean",
+      "result": "renders skill tree and SKILL.md"
+    },
+    {
+      "command": "gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user",
+      "result": "installs skill for Codex user scope"
+    },
+    {
+      "command": "npx --yes skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y --copy",
+      "result": "installs via Agent Skills CLI"
+    },
+    {
+      "command": "python3 ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py skills/nah-mean",
+      "result": "Skill is valid!"
+    }
+  ]
 }

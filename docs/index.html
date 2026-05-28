@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nah-mean - Portable Intent Alignment Skill</title>
+    <meta name="description" content="nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests and aligns intent before execution.">
+    <link rel="canonical" href="https://handlecusion.github.io/nah-mean/">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://github.com/handlecusion/nah-mean#software",
+            "name": "nah-mean",
+            "description": "Portable intent alignment skill for Codex, Claude Code, and generic agents.",
+            "codeRepository": "https://github.com/handlecusion/nah-mean",
+            "license": "https://github.com/handlecusion/nah-mean/blob/main/LICENSE",
+            "programmingLanguage": "Markdown",
+            "runtimePlatform": ["Codex", "Claude Code", "Agent Skills-compatible clients", "Generic AI agents"],
+            "version": "0.2.0",
+            "author": {
+              "@type": "Person",
+              "name": "handlecusion",
+              "url": "https://github.com/handlecusion"
+            },
+            "sameAs": [
+              "https://github.com/handlecusion/nah-mean",
+              "https://github.com/handlecusion/nah-mean/releases/tag/v0.2.0"
+            ]
+          },
+          {
+            "@type": "CreativeWork",
+            "@id": "https://handlecusion.github.io/nah-mean/#work",
+            "name": "nah-mean intent alignment contract",
+            "description": "Instruction contract that helps AI agents align user intent before executing ambiguous high-expectation requests.",
+            "inLanguage": ["en", "ko"],
+            "url": "https://handlecusion.github.io/nah-mean/",
+            "license": "https://github.com/handlecusion/nah-mean/blob/main/LICENSE",
+            "isBasedOn": "https://github.com/handlecusion/nah-mean/blob/main/skills/nah-mean/SKILL.md"
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://handlecusion.github.io/nah-mean/#breadcrumbs",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "GitHub",
+                "item": "https://github.com/handlecusion/nah-mean"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "nah-mean docs",
+                "item": "https://handlecusion.github.io/nah-mean/"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+      body {
+        margin: 0;
+        padding: 48px 20px;
+        background: Canvas;
+        color: CanvasText;
+      }
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 1;
+        margin: 0 0 16px;
+      }
+      h2 {
+        margin-top: 40px;
+      }
+      pre {
+        overflow-x: auto;
+        padding: 16px;
+        border: 1px solid color-mix(in srgb, CanvasText 22%, transparent);
+        border-radius: 8px;
+      }
+      a {
+        color: LinkText;
+      }
+      .summary {
+        font-size: 1.2rem;
+        max-width: 720px;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .box {
+        border: 1px solid color-mix(in srgb, CanvasText 22%, transparent);
+        border-radius: 8px;
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>nah-mean</h1>
+      <p class="summary">nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, aligns intent, and executes after confirmation.</p>
+
+      <h2>Install</h2>
+      <pre><code>gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user</code></pre>
+
+      <h2>Use It When</h2>
+      <div class="grid">
+        <div class="box">A user says <code>뭔말알?</code>, <code>이 느낌 알지?</code>, or <code>you know what I mean?</code>.</div>
+        <div class="box">A request depends on implied tone, quality bar, audience, or failure modes.</div>
+        <div class="box">An agent should align before editing files, writing content, designing UI, or calling tools.</div>
+      </div>
+
+      <h2>Important Links</h2>
+      <ul>
+        <li><a href="https://github.com/handlecusion/nah-mean">GitHub repository</a></li>
+        <li><a href="https://github.com/handlecusion/nah-mean/blob/main/skills/nah-mean/SKILL.md">SKILL.md</a></li>
+        <li><a href="https://github.com/handlecusion/nah-mean/blob/main/llms.txt">llms.txt</a></li>
+        <li><a href="https://github.com/handlecusion/nah-mean/releases/tag/v0.2.0">v0.2.0 release</a></li>
+      </ul>
+    </main>
+  </body>
+</html>
