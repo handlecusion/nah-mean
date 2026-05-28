@@ -1,12 +1,12 @@
 # nah-mean
 
-> Portable intent alignment skill for Codex, Claude Code, and generic agents.
+> Portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents.
 
-nah-mean pauses ambiguous high-expectation agent requests, aligns explicit user intent with inferred quality criteria, names failure modes, and proceeds after confirmation unless fast mode is requested.
+nah-mean pauses ambiguous high-expectation agent requests, aligns explicit user intent with inferred quality criteria, names failure modes, chooses the smallest fitting executor route, and proceeds after confirmation unless fast mode is requested.
 
 Canonical repo: https://github.com/handlecusion/nah-mean
 Docs site: https://handlecusion.github.io/nah-mean/
-Current release: https://github.com/handlecusion/nah-mean/releases/tag/v0.2.1
+Current release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.0
 License: MIT
 
 ## Install
@@ -20,7 +20,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned Codex install:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.2.1 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
 ```
 
 Claude Code:
@@ -43,6 +43,7 @@ npx skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y
 - Korean prompt: https://github.com/handlecusion/nah-mean/blob/main/prompts/nah-mean.ko.md
 - English prompt: https://github.com/handlecusion/nah-mean/blob/main/prompts/nah-mean.en.md
 - Generic adapter: https://github.com/handlecusion/nah-mean/blob/main/adapters/generic-agent.md
+- Benchmark: https://github.com/handlecusion/nah-mean/blob/main/benchmarks/results.md
 - Full AI discovery: https://github.com/handlecusion/nah-mean/blob/main/llms-full.txt
 
 ## Supported Agents

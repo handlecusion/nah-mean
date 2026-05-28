@@ -6,9 +6,9 @@
 
 [English](README.md) | 한국어
 
-nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignment skill이다. 사용자가 모호하지만 높은 품질을 기대하는 요청을 했을 때 바로 실행하지 않고, 명시 요청과 암묵적 품질 기준을 짧은 실행 계약으로 정리한 뒤 확인을 받고 진행한다.
+nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignment skill이다. 사용자가 모호하지만 높은 품질을 기대하는 요청을 했을 때 바로 실행하지 않고, 명시 요청과 암묵적 품질 기준을 짧게 정리한 뒤 확인을 받고 진행한다. 확인 뒤에는 `알잘딱` route로 Direct, Edit, Build, Research, Design, QA, Safety Gate 중 최소 적합 executor를 고른다.
 
-사용자가 `뭔말알?`, `뭔말인지 알지?`, `이 느낌 알지?`, `이 방향 맞지?`, `알아서 잘`, `찰떡같이` 같은 표현을 붙일 때 쓴다.
+사용자가 `뭔말알?`, `뭔말인지 알지?`, `이 느낌 알지?`, `이 방향 맞지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현을 붙일 때 쓴다.
 
 ## 한눈에 보기
 
@@ -19,15 +19,26 @@ nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignme
 | 핵심 파일 | `skills/nah-mean/SKILL.md` |
 | 지원 대상 | Codex, Claude Code, Agent Skills 호환 클라이언트, prompt-only agent |
 | 언어 | 한국어와 영어 |
-| 현재 릴리스 | `v0.2.1` |
+| 현재 릴리스 | `v0.3.0` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
+
+## 뭔말알-알잘딱-Driven
+
+이 skill은 긴 plan을 먼저 만드는 방식이 아니다.
+
+- `[뭔말알]`: 사용자의 말끝에 숨은 의도, 실패 위험, 실행 기준만 짧게 잡는다.
+- `[알잘딱]`: 확인 뒤 상황에 맞는 executor route를 고른다.
+- 목표: 더 적은 토큰과 더 적은 질문으로, 실행 전 오해를 줄이는 것.
+
+유쾌한 이름이지만 성능 기준은 진지하게 잡는다. 벤치마크 기준으로 v0.3.0은 v0.2.1 기본 정렬보다 예상 검토 시간을 평균 34.3% 줄였다.
 
 ## 이런 경우 사용
 
-- 프롬프트가 `뭔말알?`, `이 느낌 알지?`, `알아서 잘`, `찰떡같이` 같은 표현으로 끝남.
+- 프롬프트가 `뭔말알?`, `이 느낌 알지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현으로 끝남.
 - 디자인, 글쓰기, 리서치, 기획, 발표자료, 프롬프트/agent 설계, 코드 구조처럼 취향과 맥락이 중요한 작업.
 - 바로 실행하면 톤, 깊이, 독자, 형식 해석이 어긋나 재작업이 생길 가능성이 큼.
 - 파일 수정이나 도구 호출 전에 agent가 가정, 실패 방향, 실행 기준을 먼저 말해주길 원함.
+- 확인 뒤에는 agent가 Direct/Edit/Build/Research/Design/QA 중 맞는 실행 route를 알아서 고르길 원함.
 
 ## 이런 경우 사용하지 않음
 
@@ -49,19 +60,10 @@ Agent:
 
 ```text
 뭔말알.
-내가 이해한 방향:
-- README 요약이 아니라 실제로 써먹을 수 있는지 판단하는 분석
-- 기능, 한계, 설치 난이도, 적용 가능한 작업, 위험한 착각 분리
-
-피할 것:
-- GitHub 설명만 번역
-- 장점만 나열
-
-실행 기준:
-- 무엇을 할 수 있는지
-- 무엇을 못 하는지
-- 누구에게 유용한지
-- 실무 적용 판단
+의도: README 요약이 아니라 실제로 써먹을 수 있는지 판단하는 분석.
+주의: GitHub 설명 번역이나 장점 나열로 끝나면 실패.
+기준: 기능, 한계, 설치 난이도, 적용 가능한 작업, 위험한 착각을 분리.
+알잘딱 route: Research + QA.
 
 이 기준으로 진행하면 된다.
 ```
@@ -78,19 +80,10 @@ Agent:
 
 ```text
 뭔말알.
-내가 이해한 방향:
-- 장식 추가가 아니라 신뢰감 있는 디자인 방향 재정의
-- 템플릿 느낌을 줄이고 제품/브랜드 신호를 선명하게 만드는 것
-
-피할 것:
-- generic gradient
-- 추상적인 프리미엄 문구
-- 빈 공간만 늘리는 구성
-
-실행 기준:
-- 시각 hierarchy 개선
-- 첫 화면에서 실제 제품 신호 강화
-- 카피와 spacing 정리
+의도: 장식 추가가 아니라 신뢰감 있는 디자인 방향 재정의.
+주의: generic gradient, 추상적 프리미엄 문구, 빈 공간만 늘리는 구성은 피함.
+기준: 시각 hierarchy, 첫 화면 제품 신호, 카피와 spacing을 같이 정리.
+알잘딱 route: Design + Edit.
 ```
 
 ### Fast Mode
@@ -104,7 +97,7 @@ Agent:
 Agent:
 
 ```text
-뭔말알. 의도 확인용 답변이 아니라 바로 적용 가능한 문서 정리가 핵심이라, 구조와 문장만 정리하고 새 요구사항은 추가하지 않는다.
+뭔말알. 이건 의도 확인용 답변이 아니라 바로 적용 가능한 문서 정리가 핵심이다. 알잘딱 route는 Edit로 잡고, 구조와 문장만 정리하며 새 요구사항은 추가하지 않는다.
 ```
 
 그 다음 바로 실행한다.
@@ -119,7 +112,8 @@ agent 실패는 모델 성능 부족이 아니라 의도 정렬 실패에서 많
 
 설계 원칙:
 
-- alignment가 과한 회의록이 되지 않도록 짧게 유지.
+- alignment가 과한 회의록이나 plan theater가 되지 않도록 짧게 유지.
+- confirmation 뒤에는 알잘딱 route로 최소 적합 executor를 선택.
 - 질문 폭탄보다 합리적 기본값 선언 선호.
 - runtime preference memory와 durable memory 구분.
 - 특정 vendor API에 묶이지 않는 portable instruction contract 유지.
@@ -155,7 +149,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 고정 버전:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.2.1 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
 ```
 
 로컬 checkout:
@@ -211,6 +205,7 @@ npx skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y
 ├── skills/nah-mean/            # Codex / Agent Skills package
 ├── prompts/                    # prompt-only agent용 prompt
 ├── adapters/                   # framework별 설치 notes
+├── benchmarks/                 # protocol overhead benchmark
 └── docs/                       # GitHub Pages-ready discovery page
 ```
 
@@ -219,12 +214,10 @@ npx skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y
 기본 모드:
 
 1. intent-alignment trigger 감지.
-2. 명시 요청 추출.
-3. 암묵 의도와 품질 기준 추론.
-4. 실패 가능성 예측.
-5. 실행 기준과 기본 가정 선언.
-6. 필요할 때만 최대 1-3개 질문.
-7. 확인 후 실행.
+2. `[뭔말알]`로 의도, 주의, 기준만 짧게 정리.
+3. 필요할 때만 최대 1-3개 질문.
+4. 확인 후 `[알잘딱]` route 선택.
+5. Direct/Edit/Build/Research/Design/QA/Safety Gate 중 최소 적합 executor로 실행.
 
 Fast mode trigger:
 
@@ -232,7 +225,7 @@ Fast mode trigger:
 - `확인 생략`
 - `질문하지 말고 진행`
 
-Fast mode는 짧게 해석을 말하고 바로 실행한다.
+Fast mode는 짧게 해석하고 알잘딱 route를 고른 뒤 바로 실행한다.
 
 ## 비교
 
@@ -243,6 +236,25 @@ Fast mode는 짧게 해석을 말하고 바로 실행한다.
 | Prompt snippet | skill format 없는 도구에 복붙 | 자동 discovery나 구조화된 references가 필요할 때 |
 | Project memory rule | 프로젝트별 반복 correction | 여러 agent에 설치 가능한 일반 규칙이 필요할 때 |
 | MCP/tool router | tool-backed workflow 자동화 | tool 호출 전 순수 instruction behavior가 필요할 때 |
+
+## 벤치마크
+
+v0.3.0은 같은 6개 fixture를 v0.2.1 기본 정렬 방식과 새 뭔말알-알잘딱 방식으로 비교한다.
+
+```bash
+python3 benchmarks/intent_dispatch_benchmark.py
+```
+
+현재 결과:
+
+| Metric | v0.2.1 baseline | v0.3.0 | Change |
+| --- | ---: | ---: | ---: |
+| 사용자에게 보이는 alignment tokens | 39.5 | 31.0 | 21.5% 감소 |
+| Alignment workload units | 8.0 | 4.0 | 50.0% 감소 |
+| 예상 검토 시간(초) | 17.9 | 11.8 | 34.3% 감소 |
+| Input context token proxy | 388 | 493 | 27.1% 증가 |
+
+Input context token은 새 executor dispatch 설명 때문에 증가했다. 대신 decision workload와 estimated review time 중 하나 이상이 30% 이상 줄었는지 gate로 검증한다.
 
 ## FAQ
 
@@ -317,6 +329,7 @@ find skills/nah-mean -maxdepth 3 -type f -print
 | `gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user` | Codex user skill directory에 설치 |
 | `npx --yes skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y --copy` | Agent Skills CLI 설치 성공. 현재 CLI는 Codex global install을 `~/.agents/skills`에 둘 수 있음 |
 | `quick_validate.py skills/nah-mean` | `Skill is valid!` |
+| `python3 benchmarks/intent_dispatch_benchmark.py` | 30%+ improvement gate 통과 |
 | `bash -n install.sh` | 통과 |
 
 Codex skill validation:
@@ -330,6 +343,12 @@ Shell and metadata:
 ```bash
 bash -n install.sh
 python3 -m json.tool manifest.json >/dev/null
+```
+
+Benchmark:
+
+```bash
+python3 benchmarks/intent_dispatch_benchmark.py
 ```
 
 Local install smoke tests:

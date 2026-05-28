@@ -2,7 +2,23 @@
 
 ## Purpose
 
-When a user gives an ambiguous request with high quality expectations, do not execute immediately. First align the user's intent with the agent's interpretation. The goal is not summary. The goal is a pre-execution meaning contract.
+When a user gives an ambiguous request with high quality expectations, do not execute immediately. First align the user's intent with the agent's interpretation. The goal is not summary or a long plan. The goal is a lightweight pre-execution meaning contract.
+
+## Light Align + Context-Fit Dispatch
+
+Use two gears:
+
+1. Light align
+   - Read explicit request, inferred intent, failure risk, and execution standard.
+   - Do not create a detailed step plan unless the user asked for one or the work is risky.
+   - Declare reasonable defaults and surface only key uncertainty.
+
+2. Context-fit dispatch
+   - After confirmation, choose the smallest executor route that fits the task.
+   - Do not explain routing at length unless it helps the user.
+   - Decide whether the task needs direct response, file edits, building, research, design work, QA, or a safety gate.
+
+Default output should fit into "intent / watchout / standard / route". Expand only for high-risk work, large scope, or explicit planning requests.
 
 ## Trigger Conditions
 
@@ -18,6 +34,7 @@ Activate when the user uses phrases like:
 - roughly like this
 - make it fit
 - use your judgment
+- handle it cleanly
 - you know my intent, right?
 - sound good?
 - ok?
@@ -80,6 +97,15 @@ Do not expose every internal step. Compress the useful parts into the response.
    - default assumptions
    - what still needs confirmation
 
+6. Choose executor route
+   - Direct: answer or rewrite can be done without tools
+   - Edit: narrow file edits
+   - Build: multi-file implementation or structured artifact creation
+   - Research: freshness, sources, or comparison criteria matter
+   - Design: UI, visual, brand, or product taste is central
+   - QA: verification, reproduction, or evidence report is central
+   - Safety Gate: deletion, security, legal, financial, or deployment risk needs explicit confirmation
+
 ## Question Policy
 
 Do not ask many questions. Ask at most 1 to 3 narrowing questions. Prefer declaring reasonable defaults and proceeding after confirmation.
@@ -118,12 +144,12 @@ Mode B, Align Then Execute:
 Mode C, Inline Alignment Execute:
 
 - Use when the user asks for fast execution.
-- State a short interpretation, then execute immediately.
+- State a short interpretation, choose a context-fit route, then execute immediately.
 
 Example:
 
 ```text
-Got it. This is not a feature explanation. The key artifact is a copy-ready plugin spec, so I will produce one Markdown block.
+Got it. This is not a feature explanation. The key artifact is a copy-ready plugin spec, so the route is Build and the output is one Markdown block.
 ```
 
 ## Response Format
@@ -155,14 +181,10 @@ Short version:
 
 ```text
 Got it.
-My read:
-- ...
-- ...
-- ...
-
-Avoid:
-- ...
-- ...
+Intent: ...
+Watchout: ...
+Standard: ...
+Route: ...
 
 I will proceed on this basis.
 ```

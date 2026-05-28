@@ -1,0 +1,28 @@
+{
+  "fixture_count": 6,
+  "baseline": "v0.2.1 default alignment",
+  "current": "v0.3.0 light-align + context-fit dispatch",
+  "metrics": {
+    "user_visible_alignment_tokens": {
+      "baseline": 39.5,
+      "current": 31.0,
+      "improvement_percent": 21.5
+    },
+    "alignment_workload_units": {
+      "baseline": 8.0,
+      "current": 4.0,
+      "improvement_percent": 50.0
+    },
+    "estimated_review_seconds": {
+      "baseline": 17.9,
+      "current": 11.8,
+      "improvement_percent": 34.3
+    },
+    "input_context_token_proxy": {
+      "baseline": 388,
+      "current": 493,
+      "improvement_percent": -27.1
+    }
+  },
+  "pass": true
+}

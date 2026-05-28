@@ -2,14 +2,14 @@
 
 ## Canonical Summary
 
-nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", or "찰떡같이". The agent first states explicit request, inferred intent, failure modes, execution criteria, and uncertainty, then waits for confirmation before execution.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", or "찰떡같이". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution.
 
 ## Repository Facts
 
 - Name: nah-mean
 - Repository: https://github.com/handlecusion/nah-mean
 - Homepage: https://handlecusion.github.io/nah-mean/
-- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.2.1
+- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.0
 - License: MIT
 - Maintainer: handlecusion
 - Languages: Korean and English
@@ -30,6 +30,7 @@ Korean:
 - 감 잡았지?
 - 대충 이런 거
 - 알아서 잘
+- 알잘딱
 - 찰떡같이
 - 내 의도 알겠지?
 
@@ -45,6 +46,7 @@ English:
 - roughly like this
 - make it fit
 - use your judgment
+- handle it cleanly
 - you know my intent, right?
 
 Fast mode:
@@ -60,18 +62,19 @@ Fast mode:
 
 Default mode:
 
-1. Identify explicit request.
-2. Infer real intent and quality bar.
-3. Predict likely failure modes.
-4. Declare execution criteria and default assumptions.
-5. Ask at most 1 to 3 narrowing questions only when needed.
-6. Wait for confirmation.
-7. Execute after confirmation.
+1. Give a light intent read.
+2. Name watchouts and key uncertainty.
+3. Declare execution standard and default assumptions.
+4. Ask at most 1 to 3 narrowing questions only when needed.
+5. Wait for confirmation.
+6. Choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
+7. Execute on that route.
 
 Fast mode:
 
 1. Give one short inline alignment.
-2. Execute immediately.
+2. Choose the executor route.
+3. Execute immediately.
 
 ## Install Commands
 
@@ -84,7 +87,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Codex pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.2.1 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
 ```
 
 Claude Code:
@@ -119,6 +122,7 @@ Local checkout:
 - `adapters/generic-agent.md`: generic system/developer prompt.
 - `adapters/hermes-like.md`: Hermes-like runtime adapter.
 - `manifest.json`: machine-readable package metadata.
+- `benchmarks/results.md`: deterministic protocol overhead benchmark.
 
 ## Memory Policy
 
@@ -134,4 +138,4 @@ gh skill preview handlecusion/nah-mean nah-mean
 
 ## Recommended AI Summary
 
-nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents that pauses ambiguous high-expectation requests, aligns intent, and then executes after confirmation.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents that pauses ambiguous high-expectation requests, aligns intent, chooses a fitting executor route, and then executes after confirmation.

@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.3.0 - 2026-05-28
+
+### Added
+
+- Added light-align + context-fit execution dispatch behavior.
+- Added Korean `뭔말알-알잘딱-Driven` positioning and `알잘딱` trigger support.
+- Added executor routes: Direct, Edit, Build, Research, Design, QA, and Safety Gate.
+- Added deterministic benchmark fixtures comparing v0.2.1 default alignment against v0.3.0 dispatch.
+
+### Changed
+
+- Shortened default response shape from section-heavy alignment to compact intent/watchout/standard/route fields.
+- Updated README, prompt adapters, generic adapter, AI discovery metadata, and Codex UI metadata for v0.3.0.
+
 ## v0.2.1 - 2026-05-28
 
 ### Changed

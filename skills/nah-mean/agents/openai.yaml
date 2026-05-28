@@ -1,4 +1,4 @@
 interface:
-  display_name: "뭔말알 Intent Alignment"
-  short_description: "Align intent before ambiguous requests"
-  default_prompt: "Use $nah-mean to align intent before executing an ambiguous high-quality request."
+  display_name: "뭔말알 알잘딱"
+  short_description: "Light-align intent, then route execution"
+  default_prompt: "Use $nah-mean to lightly align intent and choose the fitting executor route."

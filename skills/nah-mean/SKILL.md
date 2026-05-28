@@ -1,29 +1,45 @@
 ---
 name: nah-mean
-description: Intent alignment layer for ambiguous or high-expectation requests before execution. Use when a user says Korean triggers like "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "you get the direction?", "make it fit", "use your judgment", "you know the intent?", especially for design, writing, research, planning, prompt/agent design, code structure, automation workflows, presentations, business plans, and other work where executing immediately risks rework.
+description: Lightweight intent alignment and context-fit execution dispatch for ambiguous or high-expectation requests. Use when a user says Korean triggers like "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "you get the direction?", "make it fit", "use your judgment", "handle it cleanly", "you know the intent?", especially for design, writing, research, planning, prompt/agent design, code structure, automation workflows, presentations, business plans, and other work where executing immediately risks rework.
 ---
 
 # Nah Mean
 
-Use this skill to create an execution contract before doing ambiguous, taste-sensitive, or high-quality work.
+Use this skill in two gears:
+
+- **Nah-Mean**: lightweight intent read before execution. This is not a full plan.
+- **Aljalttak**: choose the smallest fitting executor route after confirmation or fast-mode trigger.
 
 ## Core Behavior
 
-When triggered, do not immediately execute unless the user explicitly asks for fast execution with phrases like "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking".
+When triggered, do not execute target work immediately unless the user asks for fast execution with phrases like "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking".
 
 Default mode:
 
-1. State what you believe the user wants.
-2. Separate explicit request from inferred intent.
-3. Name likely failure modes.
-4. Declare execution criteria and defaults.
-5. Ask at most 1 to 3 narrowing questions only when needed.
-6. Wait for confirmation before execution.
+1. Give a compact Nah-Mean read: intent, risk, execution standard.
+2. Ask at most 1 to 3 narrowing questions only when the default would be risky.
+3. Wait for confirmation.
+4. Use Aljalttak dispatch to choose the executor route and then execute.
 
 Fast mode:
 
-1. Give one short inline alignment.
-2. Execute immediately.
+1. Give one short Nah-Mean read.
+2. Pick an Aljalttak executor route.
+3. Execute immediately.
+
+## Aljalttak Dispatch
+
+After alignment, pick one route. Keep it implicit unless naming it helps the user.
+
+| Route | Use when |
+| --- | --- |
+| Direct | answer or rewrite can be done without tools |
+| Edit | files need small scoped changes |
+| Build | multi-file implementation or structured artifact creation |
+| Research | current facts, sources, or external comparison matter |
+| Design | UI/visual/product taste is central |
+| QA | user asks whether it works, or proof is needed |
+| Safety Gate | destructive, security, legal, financial, or deployment risk needs explicit confirmation |
 
 ## Response Shape
 
@@ -33,17 +49,10 @@ Short Korean shape:
 
 ```text
 뭔말알.
-내가 이해한 방향:
-- ...
-- ...
-
-피할 것:
-- ...
-- ...
-
-실행 기준:
-- ...
-- ...
+의도: ...
+주의: ...
+기준: ...
+알잘딱 route: ...
 
 이 기준으로 진행하면 된다.
 ```
@@ -52,17 +61,10 @@ Short English shape:
 
 ```text
 Got it.
-My read:
-- ...
-- ...
-
-Avoid:
-- ...
-- ...
-
-Execution criteria:
-- ...
-- ...
+Intent: ...
+Watchout: ...
+Standard: ...
+Route: ...
 
 If this is right, I will proceed on this basis.
 ```

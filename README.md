@@ -6,7 +6,7 @@
 
 English | [한국어](README.ko.md)
 
-nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a short execution contract, and proceeds only after confirmation unless fast mode is requested.
+nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a compact execution contract, and then chooses the smallest fitting executor route after confirmation unless fast mode is requested.
 
 Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`.
 
@@ -19,8 +19,18 @@ Use it when a user says things like `you know what I mean?`, `get the vibe?`, `u
 | Main artifact | `skills/nah-mean/SKILL.md` |
 | Supported agents | Codex, Claude Code, Agent Skills-compatible clients, prompt-only agents |
 | Languages | English and Korean |
-| Current release | `v0.2.1` |
+| Current release | `v0.3.0` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
+
+## Light Align, Then Dispatch
+
+nah-mean is not a planning layer by default.
+
+- Light align: state intent, watchout, and standard in a few lines.
+- Context-fit dispatch: after confirmation, choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
+- Goal: reduce prompt misreads with less user-visible alignment overhead.
+
+Benchmarked against the v0.2.1 default alignment protocol, v0.3.0 reduces estimated review time by 34.3% on the included fixture set.
 
 ## Use It When
 
@@ -28,6 +38,7 @@ Use it when a user says things like `you know what I mean?`, `get the vibe?`, `u
 - Work is taste-sensitive: design, writing, research, planning, presentations, prompt/agent design, code structure, automation workflows.
 - Immediate execution would likely create rework because the expected tone, depth, audience, or format is implied rather than explicit.
 - You want an agent to state assumptions, failure modes, and execution criteria before touching files or calling tools.
+- You want the agent to choose the appropriate execution route after alignment instead of asking for an implementation plan.
 
 ## Do Not Use It When
 
@@ -49,19 +60,10 @@ Agent:
 
 ```text
 Got it.
-My read:
-- You want a stronger design direction, not decorative polish.
-- The page should feel credible, specific, and less template-like.
-
-Avoid:
-- generic gradients
-- vague luxury language
-- oversized empty sections
-
-Execution criteria:
-- clearer visual hierarchy
-- concrete product signal above the fold
-- tighter copy and spacing
+Intent: stronger design direction, not decorative polish.
+Watchout: generic gradients, vague luxury language, and oversized empty sections would miss the point.
+Standard: clearer hierarchy, concrete product signal above the fold, tighter copy and spacing.
+Route: Design + Edit.
 
 If this is right, I will proceed on this basis.
 ```
@@ -78,19 +80,10 @@ Agent:
 
 ```text
 Got it.
-My read:
-- You need a practical adoption decision, not a feature checklist.
-- The comparison should prioritize workload fit, operational cost, ecosystem risk, and migration pain.
-
-Avoid:
-- vendor marketing language
-- ranking every feature equally
-- recommending a tool without naming assumptions
-
-Execution criteria:
-- define the workload assumptions
-- compare tradeoffs directly
-- give a default recommendation and when it would change
+Intent: practical adoption decision, not a feature checklist.
+Watchout: vendor marketing language or equal-weight feature tables would be weak.
+Standard: define workload assumptions, compare operational tradeoffs, and give a default recommendation with change conditions.
+Route: Research.
 ```
 
 ### Fast Mode
@@ -104,7 +97,7 @@ Clean up this spec and proceed without asking. You know what I mean?
 Agent:
 
 ```text
-Got it. This is cleanup, not product expansion, so I will preserve scope and make the spec clearer, tighter, and directly actionable.
+Got it. This is cleanup, not product expansion, so the route is Edit: preserve scope and make the spec clearer, tighter, and directly actionable.
 ```
 
 Then the agent executes.
@@ -120,6 +113,7 @@ Many agent failures are not model capability failures. They are intent alignment
 Design principles:
 
 - Keep alignment short enough that it does not become planning theater.
+- Dispatch to the smallest executor route that fits the confirmed work.
 - Prefer declared defaults over broad question lists.
 - Separate runtime preference memory from durable memory.
 - Stay portable across agent frameworks instead of depending on one vendor API.
@@ -155,7 +149,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.2.1 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
 ```
 
 Local checkout:
@@ -211,6 +205,7 @@ Use one of:
 ├── skills/nah-mean/            # Codex / Agent Skills package
 ├── prompts/                    # Copy-paste prompts for generic agents
 ├── adapters/                   # Framework-specific install notes
+├── benchmarks/                 # Protocol overhead benchmark
 └── docs/                       # GitHub Pages-ready discovery page
 ```
 
@@ -219,12 +214,11 @@ Use one of:
 Default mode:
 
 1. Detect intent-alignment trigger.
-2. Extract explicit request.
-3. Infer latent intent and quality bar.
-4. Predict likely failure modes.
-5. Declare execution criteria and defaults.
-6. Ask at most 1 to 3 narrowing questions only if needed.
-7. Wait for confirmation before executing.
+2. Give a light alignment: intent, watchout, and standard.
+3. Ask at most 1 to 3 narrowing questions only if needed.
+4. Wait for confirmation.
+5. Dispatch to Direct, Edit, Build, Research, Design, QA, or Safety Gate.
+6. Execute on that route.
 
 Fast mode triggers:
 
@@ -232,7 +226,7 @@ Fast mode triggers:
 - `skip confirmation`
 - `proceed without asking`
 
-Fast mode gives one short alignment, then executes.
+Fast mode gives one short alignment, chooses the route, then executes.
 
 ## Comparison
 
@@ -243,6 +237,25 @@ Fast mode gives one short alignment, then executes.
 | Prompt snippet | Copying behavior into a tool without skill support | Automatic discovery or structured references |
 | Project memory rule | Project-specific repeated corrections | General installable behavior across agents |
 | MCP/tool router | Tool-backed workflow automation | Pure instruction behavior that should run before tools |
+
+## Benchmark
+
+v0.3.0 compares the same 6 fixtures against the v0.2.1 default alignment protocol and the new light-align + context-fit dispatch protocol.
+
+```bash
+python3 benchmarks/intent_dispatch_benchmark.py
+```
+
+Current result:
+
+| Metric | v0.2.1 baseline | v0.3.0 | Change |
+| --- | ---: | ---: | ---: |
+| User-visible alignment tokens | 39.5 | 31.0 | 21.5% lower |
+| Alignment workload units | 8.0 | 4.0 | 50.0% lower |
+| Estimated review seconds | 17.9 | 11.8 | 34.3% lower |
+| Input context token proxy | 388 | 493 | 27.1% higher |
+
+Input context tokens are tracked but not used as the headline improvement because v0.3.0 adds executor dispatch semantics. The gate requires at least one measured category to improve by 30% or more; current pass metrics are workload units and estimated review seconds.
 
 ## FAQ
 
@@ -317,6 +330,7 @@ Last verified: 2026-05-28.
 | `gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user` | Installs into Codex user skill directory |
 | `npx --yes skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y --copy` | Installs via Agent Skills CLI; current CLI uses `~/.agents/skills` for Codex global installs |
 | `quick_validate.py skills/nah-mean` | `Skill is valid!` |
+| `python3 benchmarks/intent_dispatch_benchmark.py` | Passes 30%+ improvement gate |
 | `bash -n install.sh` | Passes |
 
 ## Validate
@@ -334,6 +348,12 @@ Shell and metadata:
 ```bash
 bash -n install.sh
 python3 -m json.tool manifest.json >/dev/null
+```
+
+Benchmark:
+
+```bash
+python3 benchmarks/intent_dispatch_benchmark.py
 ```
 
 Local install smoke tests:

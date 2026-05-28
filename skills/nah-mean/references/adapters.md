@@ -17,7 +17,7 @@ Minimum portable fields:
 
 ```yaml
 name: nah-mean
-purpose: Align user intent before execution for ambiguous high-expectation requests.
+purpose: Lightly align user intent, then choose the smallest fitting executor route for ambiguous high-expectation requests.
 triggers:
   korean:
     - "뭔말알?"
@@ -27,6 +27,7 @@ triggers:
     - "감 잡았지?"
     - "대충 이런 거"
     - "알아서 잘"
+    - "알잘딱"
     - "찰떡같이"
     - "내 의도 알겠지?"
   english:
@@ -35,9 +36,11 @@ triggers:
     - "get the direction?"
     - "something like this"
     - "use your judgment"
+    - "handle it cleanly"
     - "make it fit"
     - "you know my intent?"
 default_mode: align_then_execute
+executor_routes: [Direct, Edit, Build, Research, Design, QA, Safety Gate]
 fast_mode_triggers:
   korean:
     - "바로 해"
@@ -55,18 +58,17 @@ memory_boundary: Runtime preference memory is separate from durable project memo
 Copy this into any agent framework:
 
 ```text
-When a user request includes "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "get the direction?", "something like this", "use your judgment", or "make it fit", do not execute immediately.
+When a user request includes "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "get the direction?", "something like this", "use your judgment", "handle it cleanly", or "make it fit", do not execute immediately.
 
-First align intent:
-1. Identify the explicit request.
-2. Infer the user's likely real intent and quality bar.
-3. Predict likely failure modes.
-4. Declare execution criteria and default assumptions.
-5. Ask at most 1 to 3 narrowing questions only when needed.
+First create a lightweight intent read:
+1. Identify the explicit request and inferred quality bar.
+2. Name likely failure modes and key uncertainty.
+3. Declare execution criteria and default assumptions.
+4. Choose a route: Direct, Edit, Build, Research, Design, QA, or Safety Gate.
 
 Then wait for confirmation before execution.
 
-If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking", give a one-sentence alignment and execute immediately.
+If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking", give a one-sentence alignment, choose the route, and execute immediately.
 
 Maintain runtime preference memory from corrections, but do not claim durable persistence unless the framework provides it. Durable memory or wiki writes require explicit user request, repeated preference, or project-level rule.
 ```
@@ -102,7 +104,7 @@ Use one of these patterns:
 Suggested project snippet:
 
 ```text
-Use nah-mean intent alignment when a user ends a request with "뭔말알?", "you know what I mean?", "get the vibe?", or similar phrases. First state explicit request, inferred intent, failure modes, execution criteria, and uncertainty. Ask at most 1 to 3 narrowing questions. Wait for confirmation unless the user says to proceed without asking.
+Use nah-mean intent alignment when a user ends a request with "뭔말알?", "you know what I mean?", "get the vibe?", or similar phrases. First give a compact intent read, failure risk, execution standard, and route. Ask at most 1 to 3 narrowing questions. Wait for confirmation unless the user says to proceed without asking.
 ```
 
 ## Hermes-Like or Unknown Agent Adapter
@@ -127,9 +129,9 @@ Do not call tools for the target task until alignment completes, except for read
 Given a triggered request, a compliant agent should:
 
 - not execute target work immediately
-- separate explicit request from inferred intent
-- name what to avoid
-- declare execution criteria
+- give a compact intent read instead of a long plan
+- name what to avoid and what standard to use
+- choose a fitting executor route
 - expose key uncertainty
 - ask no more than 1 to 3 questions
 - wait for confirmation unless fast mode is triggered
