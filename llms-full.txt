@@ -2,18 +2,20 @@
 
 ## Canonical Summary
 
-nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It activates when a user gives an ambiguous high-expectation request with phrases like "뭔말알?", "이 느낌 알지?", "you know what I mean?", or "get the vibe?". The agent first states explicit request, inferred intent, failure modes, execution criteria, and uncertainty, then waits for confirmation before execution.
+nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", or "찰떡같이". The agent first states explicit request, inferred intent, failure modes, execution criteria, and uncertainty, then waits for confirmation before execution.
 
 ## Repository Facts
 
 - Name: nah-mean
 - Repository: https://github.com/handlecusion/nah-mean
 - Homepage: https://handlecusion.github.io/nah-mean/
-- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.2.0
+- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.2.1
 - License: MIT
 - Maintainer: handlecusion
 - Languages: Korean and English
 - Primary package path: `skills/nah-mean/SKILL.md`
+- English README: `README.md`
+- Korean README: `README.ko.md`
 
 ## Trigger Phrases
 
@@ -82,7 +84,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Codex pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.2.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.2.1 --agent codex --scope user
 ```
 
 Claude Code:
@@ -105,7 +107,8 @@ Local checkout:
 
 ## Entry Points
 
-- `README.md`: overview, install, examples, FAQ, validation.
+- `README.md`: English overview, install, examples, FAQ, validation.
+- `README.ko.md`: Korean overview, install, examples, FAQ, validation.
 - `skills/nah-mean/SKILL.md`: Codex / Agent Skills package.
 - `skills/nah-mean/references/core.ko.md`: full Korean contract.
 - `skills/nah-mean/references/core.en.md`: full English contract.

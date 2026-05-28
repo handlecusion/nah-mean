@@ -4,9 +4,11 @@
 [![Release](https://img.shields.io/github/v/release/handlecusion/nah-mean)](https://github.com/handlecusion/nah-mean/releases)
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-green)](skills/nah-mean/SKILL.md)
 
-nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a short execution contract, and then proceeds only after confirmation unless fast mode is requested.
+English | [한국어](README.ko.md)
 
-Use it when a user says things like `뭔말알?`, `이 느낌 알지?`, `알아서 잘`, `you know what I mean?`, `get the vibe?`, or `use your judgment`.
+nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a short execution contract, and proceeds only after confirmation unless fast mode is requested.
+
+Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`.
 
 ## At A Glance
 
@@ -16,55 +18,26 @@ Use it when a user says things like `뭔말알?`, `이 느낌 알지?`, `알아�
 | Who is it for? | Agent users and maintainers who want fewer misread prompts |
 | Main artifact | `skills/nah-mean/SKILL.md` |
 | Supported agents | Codex, Claude Code, Agent Skills-compatible clients, prompt-only agents |
-| Languages | Korean and English |
-| Current release | `v0.2.0` |
+| Languages | English and Korean |
+| Current release | `v0.2.1` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## Use It When
 
-- A prompt ends with `뭔말알?`, `이 느낌 알지?`, `you know what I mean?`, or similar intent-checking language.
+- A prompt ends with `you know what I mean?`, `get the vibe?`, `make it fit`, or similar intent-checking language.
 - Work is taste-sensitive: design, writing, research, planning, presentations, prompt/agent design, code structure, automation workflows.
-- Immediate execution would likely create rework because the expected tone, depth, or format is implied rather than explicit.
+- Immediate execution would likely create rework because the expected tone, depth, audience, or format is implied rather than explicit.
 - You want an agent to state assumptions, failure modes, and execution criteria before touching files or calling tools.
 
 ## Do Not Use It When
 
 - The task is already precise and low-risk, such as "run `date`" or "rename this variable."
-- The user explicitly says `바로 해`, `질문하지 말고 진행`, `just do it`, or `proceed without asking`.
+- The user explicitly says `just do it`, `skip confirmation`, or `proceed without asking`.
 - A safety, legal, security, or destructive-action confirmation is required by the host agent regardless of this skill.
 
 ## Examples
 
-### Korean Default Alignment
-
-User:
-
-```text
-이 레포 분석해서 어떤 오픈소스인지 설명해줘. 뭔말알?
-```
-
-Agent:
-
-```text
-뭔말알.
-내가 이해한 방향:
-- README 요약이 아니라 실제로 써먹을 수 있는지 판단하는 분석
-- 기능, 한계, 설치 난이도, 적용 가능한 작업, 위험한 착각 분리
-
-피할 것:
-- GitHub 설명만 번역
-- 장점만 나열
-
-실행 기준:
-- 무엇을 할 수 있는지
-- 무엇을 못 하는지
-- 누구에게 유용한지
-- 실무 적용 판단
-
-이 기준으로 진행하면 된다.
-```
-
-### English Default Alignment
+### Default Alignment
 
 User:
 
@@ -93,25 +66,52 @@ Execution criteria:
 If this is right, I will proceed on this basis.
 ```
 
-### Fast Mode
+### Research Alignment
 
 User:
 
 ```text
-이 기준으로 문서 정리해. 질문하지 말고 진행. 뭔말알?
+Compare these three vector databases and tell me which one we should use. You know what I mean?
 ```
 
 Agent:
 
 ```text
-뭔말알. 의도 확인용 답변이 아니라 바로 적용 가능한 문서 정리가 핵심이라, 구조와 문장만 정리하고 새 요구사항은 추가하지 않는다.
+Got it.
+My read:
+- You need a practical adoption decision, not a feature checklist.
+- The comparison should prioritize workload fit, operational cost, ecosystem risk, and migration pain.
+
+Avoid:
+- vendor marketing language
+- ranking every feature equally
+- recommending a tool without naming assumptions
+
+Execution criteria:
+- define the workload assumptions
+- compare tradeoffs directly
+- give a default recommendation and when it would change
+```
+
+### Fast Mode
+
+User:
+
+```text
+Clean up this spec and proceed without asking. You know what I mean?
+```
+
+Agent:
+
+```text
+Got it. This is cleanup, not product expansion, so I will preserve scope and make the spec clearer, tighter, and directly actionable.
 ```
 
 Then the agent executes.
 
 ### Bad Result Prevented
 
-Without nah-mean, an agent may treat "알아서 잘" as permission to invent style, scope, or features. With nah-mean, the agent first declares what "잘" means for that task: target reader, output format, failure modes, and acceptance criteria. That short pause prevents polished but wrong work.
+Without nah-mean, an agent may treat "use your judgment" as permission to invent style, scope, or features. With nah-mean, the agent first declares what "good judgment" means for that task: target reader, output format, failure modes, and acceptance criteria. That short pause prevents polished but wrong work.
 
 ## Why This Exists
 
@@ -143,7 +143,7 @@ Pick the path that matches your agent.
 | Codex, from GitHub | GitHub CLI | `gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user` |
 | Claude Code, from GitHub | GitHub CLI | `gh skill install handlecusion/nah-mean nah-mean --agent claude-code --scope user` |
 | Agent Skills-compatible clients | `skills` CLI | `npx skills add handlecusion/nah-mean --skill nah-mean -a <agent> -g -y` |
-| Any prompt-only agent | Copy prompt | `prompts/nah-mean.ko.md` or `prompts/nah-mean.en.md` |
+| Any prompt-only agent | Copy prompt | `prompts/nah-mean.en.md` |
 
 ### Codex
 
@@ -155,7 +155,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.2.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.2.1 --agent codex --scope user
 ```
 
 Local checkout:
@@ -193,10 +193,10 @@ Note: current `skills` CLI may place Codex global installs under `~/.agents/skil
 
 Use one of:
 
-- [prompts/nah-mean.ko.md](prompts/nah-mean.ko.md)
 - [prompts/nah-mean.en.md](prompts/nah-mean.en.md)
 - [adapters/generic-agent.md](adapters/generic-agent.md)
 - [adapters/hermes-like.md](adapters/hermes-like.md)
+- [Korean prompt](prompts/nah-mean.ko.md) if your agent serves Korean users.
 
 ## What This Repo Contains
 
@@ -206,6 +206,8 @@ Use one of:
 ├── manifest.json               # Portable entrypoint map and metadata
 ├── llms.txt                    # Compact AI discovery file
 ├── llms-full.txt               # Expanded AI discovery file
+├── README.md                   # English documentation
+├── README.ko.md                # Korean documentation
 ├── skills/nah-mean/            # Codex / Agent Skills package
 ├── prompts/                    # Copy-paste prompts for generic agents
 ├── adapters/                   # Framework-specific install notes
@@ -226,8 +228,9 @@ Default mode:
 
 Fast mode triggers:
 
-- Korean: `바로 해`, `확인 생략`, `질문하지 말고 진행`
-- English: `just do it`, `skip confirmation`, `proceed without asking`
+- `just do it`
+- `skip confirmation`
+- `proceed without asking`
 
 Fast mode gives one short alignment, then executes.
 

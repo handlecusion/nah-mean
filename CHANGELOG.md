@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.2.1 - 2026-05-28
+
+### Changed
+
+- Split English and Korean documentation into `README.md` and `README.ko.md`.
+- Kept English examples focused on English intent phrases such as "you know what I mean?", "get the vibe?", and "use your judgment".
+- Kept Korean examples focused on Korean intent phrases such as "뭔말알?", "이 느낌 알지?", and "알아서 잘".
+- Updated AI discovery metadata and docs links for the split README structure.
+
 ## v0.2.0 - 2026-05-28
 
 ### Added
