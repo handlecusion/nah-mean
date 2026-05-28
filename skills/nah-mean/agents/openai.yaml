@@ -1,0 +1,4 @@
+interface:
+  display_name: "뭔말알 Intent Alignment"
+  short_description: "Align intent before ambiguous requests"
+  default_prompt: "Use $nah-mean to align intent before executing an ambiguous high-quality request."

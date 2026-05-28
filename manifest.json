@@ -1,0 +1,18 @@
+{
+  "name": "nah-mean",
+  "version": "0.1.0",
+  "description": "Portable intent alignment skill for ambiguous high-expectation requests.",
+  "languages": ["ko", "en"],
+  "entrypoints": {
+    "codex_skill": "skills/nah-mean/SKILL.md",
+    "generic_prompt_ko": "prompts/nah-mean.ko.md",
+    "generic_prompt_en": "prompts/nah-mean.en.md",
+    "generic_adapter": "adapters/generic-agent.md",
+    "claude_code_adapter": "adapters/claude-code.md",
+    "hermes_like_adapter": "adapters/hermes-like.md"
+  },
+  "install": {
+    "codex": "./install.sh",
+    "generic": "Copy one prompt from prompts/ into the agent system/developer instructions."
+  }
+}
