@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.2 - 2026-05-28
+
+### Removed
+
+- Removed deterministic benchmark script, baseline, and generated result files to keep the repo focused on the installable skill package.
+
+### Changed
+
+- Replaced numeric benchmark claims in README and AI discovery files with a simpler tradeoff note.
+
 ## v0.3.1 - 2026-05-28
 
 ### Changed

@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use nah-mean in research, documentation, or agent tooling, cite this repository."
 title: "nah-mean: Portable Intent Alignment Skill for AI Agents"
-version: "0.3.1"
+version: "0.3.2"
 date-released: "2026-05-28"
 type: software
 authors:

@@ -19,7 +19,7 @@ Use it when a user says things like `you know what I mean?`, `get the vibe?`, `u
 | Main artifact | `skills/nah-mean/SKILL.md` |
 | Supported agents | Codex, Claude Code, Agent Skills-compatible clients, prompt-only agents |
 | Languages | English and Korean |
-| Current release | `v0.3.1` |
+| Current release | `v0.3.2` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## Light Align, Then Dispatch
@@ -30,7 +30,7 @@ nah-mean is not a planning layer by default.
 - Context-fit dispatch: after confirmation, choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
 - Goal: reduce prompt misreads with less user-visible alignment overhead.
 
-Benchmarked against a vanilla agent with no skill installed, v0.3.1 reduces estimated rework-adjusted time by 49.8% on the included fixture set. Vanilla still wins upfront token overhead because it adds no skill context or alignment response.
+Tradeoff: nah-mean adds a small alignment step and skill context. It is meant for ambiguous work where that upfront cost is cheaper than polished rework.
 
 ## Use It When
 
@@ -149,7 +149,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.1 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.2 --agent codex --scope user
 ```
 
 Local checkout:
@@ -205,7 +205,6 @@ Use one of:
 ├── skills/nah-mean/            # Codex / Agent Skills package
 ├── prompts/                    # Copy-paste prompts for generic agents
 ├── adapters/                   # Framework-specific install notes
-├── benchmarks/                 # Protocol overhead benchmark
 └── docs/                       # GitHub Pages-ready discovery page
 ```
 
@@ -238,25 +237,9 @@ Fast mode gives one short alignment, chooses the route, then executes.
 | Project memory rule | Project-specific repeated corrections | General installable behavior across agents |
 | MCP/tool router | Tool-backed workflow automation | Pure instruction behavior that should run before tools |
 
-## Benchmark
+## Tradeoff
 
-v0.3.1 compares the same 6 fixtures against a vanilla agent with no skill installed. This is a deterministic protocol-risk estimate, not a model quality benchmark.
-
-```bash
-python3 benchmarks/intent_dispatch_benchmark.py
-```
-
-Current result:
-
-| Metric | Vanilla | nah-mean | Change | Winner |
-| --- | ---: | ---: | ---: | --- |
-| Upfront alignment tokens | 0.0 | 31.0 | +31.0 tokens | vanilla |
-| Input context token proxy | 0 | 493 | +493 token proxy | vanilla |
-| Expected rework units | 4.6 | 0.8 | 81.8% lower | nah-mean |
-| Coordination workload units | 4.6 | 2.8 | 38.2% lower | nah-mean |
-| Estimated rework-adjusted seconds | 36.7 | 18.4 | 49.8% lower | nah-mean |
-
-Input context and upfront alignment tokens are worse than vanilla by design. The pass gate requires at least one nah-mean metric to improve by 30% or more; current pass metrics are expected rework, coordination workload, and rework-adjusted time.
+Vanilla agents have lower upfront token overhead because they do not load this skill and do not produce an alignment response. nah-mean is useful when a short intent contract is likely to prevent wrong-scope edits, generic design work, shallow research, or style/tone rework.
 
 ## FAQ
 
@@ -331,7 +314,6 @@ Last verified: 2026-05-28.
 | `gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user` | Installs into Codex user skill directory |
 | `npx --yes skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y --copy` | Installs via Agent Skills CLI; current CLI uses `~/.agents/skills` for Codex global installs |
 | `quick_validate.py skills/nah-mean` | `Skill is valid!` |
-| `python3 benchmarks/intent_dispatch_benchmark.py` | Passes 30%+ improvement gate |
 | `bash -n install.sh` | Passes |
 
 ## Validate
@@ -349,12 +331,6 @@ Shell and metadata:
 ```bash
 bash -n install.sh
 python3 -m json.tool manifest.json >/dev/null
-```
-
-Benchmark:
-
-```bash
-python3 benchmarks/intent_dispatch_benchmark.py
 ```
 
 Local install smoke tests:
