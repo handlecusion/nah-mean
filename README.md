@@ -19,7 +19,7 @@ Use it when a user says things like `you know what I mean?`, `get the vibe?`, `u
 | Main artifact | `skills/nah-mean/SKILL.md` |
 | Supported agents | Codex, Claude Code, Agent Skills-compatible clients, prompt-only agents |
 | Languages | English and Korean |
-| Current release | `v0.3.0` |
+| Current release | `v0.3.1` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## Light Align, Then Dispatch
@@ -30,7 +30,7 @@ nah-mean is not a planning layer by default.
 - Context-fit dispatch: after confirmation, choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
 - Goal: reduce prompt misreads with less user-visible alignment overhead.
 
-Benchmarked against the v0.2.1 default alignment protocol, v0.3.0 reduces estimated review time by 34.3% on the included fixture set.
+Benchmarked against a vanilla agent with no skill installed, v0.3.1 reduces estimated rework-adjusted time by 49.8% on the included fixture set. Vanilla still wins upfront token overhead because it adds no skill context or alignment response.
 
 ## Use It When
 
@@ -149,7 +149,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.1 --agent codex --scope user
 ```
 
 Local checkout:
@@ -240,7 +240,7 @@ Fast mode gives one short alignment, chooses the route, then executes.
 
 ## Benchmark
 
-v0.3.0 compares the same 6 fixtures against the v0.2.1 default alignment protocol and the new light-align + context-fit dispatch protocol.
+v0.3.1 compares the same 6 fixtures against a vanilla agent with no skill installed. This is a deterministic protocol-risk estimate, not a model quality benchmark.
 
 ```bash
 python3 benchmarks/intent_dispatch_benchmark.py
@@ -248,14 +248,15 @@ python3 benchmarks/intent_dispatch_benchmark.py
 
 Current result:
 
-| Metric | v0.2.1 baseline | v0.3.0 | Change |
-| --- | ---: | ---: | ---: |
-| User-visible alignment tokens | 39.5 | 31.0 | 21.5% lower |
-| Alignment workload units | 8.0 | 4.0 | 50.0% lower |
-| Estimated review seconds | 17.9 | 11.8 | 34.3% lower |
-| Input context token proxy | 388 | 493 | 27.1% higher |
+| Metric | Vanilla | nah-mean | Change | Winner |
+| --- | ---: | ---: | ---: | --- |
+| Upfront alignment tokens | 0.0 | 31.0 | +31.0 tokens | vanilla |
+| Input context token proxy | 0 | 493 | +493 token proxy | vanilla |
+| Expected rework units | 4.6 | 0.8 | 81.8% lower | nah-mean |
+| Coordination workload units | 4.6 | 2.8 | 38.2% lower | nah-mean |
+| Estimated rework-adjusted seconds | 36.7 | 18.4 | 49.8% lower | nah-mean |
 
-Input context tokens are tracked but not used as the headline improvement because v0.3.0 adds executor dispatch semantics. The gate requires at least one measured category to improve by 30% or more; current pass metrics are workload units and estimated review seconds.
+Input context and upfront alignment tokens are worse than vanilla by design. The pass gate requires at least one nah-mean metric to improve by 30% or more; current pass metrics are expected rework, coordination workload, and rework-adjusted time.
 
 ## FAQ
 

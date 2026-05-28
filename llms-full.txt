@@ -9,7 +9,7 @@ nah-mean is a portable light-align and context-fit execution dispatch skill for 
 - Name: nah-mean
 - Repository: https://github.com/handlecusion/nah-mean
 - Homepage: https://handlecusion.github.io/nah-mean/
-- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.0
+- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.1
 - License: MIT
 - Maintainer: handlecusion
 - Languages: Korean and English
@@ -87,7 +87,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Codex pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.1 --agent codex --scope user
 ```
 
 Claude Code:
@@ -127,6 +127,14 @@ Local checkout:
 ## Memory Policy
 
 nah-mean distinguishes runtime preference memory from durable memory. Runtime memory is session/project working state. Durable memory requires a real storage mechanism such as project files, wiki, or memory tools. The skill instructs agents not to claim persistence unless they actually write durable state.
+
+## Benchmark Summary
+
+The benchmark compares nah-mean v0.3.1 against a vanilla agent with no skill installed. It is a deterministic protocol-risk estimate, not a model quality benchmark. Vanilla wins upfront token overhead because it adds no skill context or alignment response. nah-mean wins rework-adjusted metrics on the included fixtures:
+
+- Expected rework units: 81.8% lower
+- Coordination workload units: 38.2% lower
+- Estimated rework-adjusted seconds: 49.8% lower
 
 ## Safety Notes
 

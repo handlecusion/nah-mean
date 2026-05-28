@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "nah-mean",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Portable light-align and context-fit execution dispatch skill for ambiguous high-expectation agent requests.",
   "repository": "https://github.com/handlecusion/nah-mean",
   "canonical_url": "https://github.com/handlecusion/nah-mean",
   "homepage": "https://handlecusion.github.io/nah-mean/",
-  "release_url": "https://github.com/handlecusion/nah-mean/releases/tag/v0.3.0",
+  "release_url": "https://github.com/handlecusion/nah-mean/releases/tag/v0.3.1",
   "license": "MIT",
   "languages": [
     "ko",
@@ -32,7 +32,7 @@
   ],
   "same_as": [
     "https://github.com/handlecusion/nah-mean",
-    "https://github.com/handlecusion/nah-mean/releases/tag/v0.3.0",
+    "https://github.com/handlecusion/nah-mean/releases/tag/v0.3.1",
     "https://handlecusion.github.io/nah-mean/"
   ],
   "skill_path": "skills/nah-mean/SKILL.md",
@@ -52,7 +52,7 @@
   },
   "install": {
     "codex": "gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user",
-    "codex_pinned": "gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user",
+    "codex_pinned": "gh skill install handlecusion/nah-mean nah-mean@v0.3.1 --agent codex --scope user",
     "claude_code": "gh skill install handlecusion/nah-mean nah-mean --agent claude-code --scope user",
     "skills_cli": "npx skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y",
     "local": "./install.sh",

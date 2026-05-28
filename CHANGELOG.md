@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.3.1 - 2026-05-28
+
+### Changed
+
+- Corrected the benchmark baseline from `v0.2.1` to a vanilla agent with no skill installed.
+- Documented that vanilla wins upfront input/output token overhead, while nah-mean improves rework-adjusted workload and time.
+
 ## v0.3.0 - 2026-05-28
 
 ### Added
@@ -7,7 +14,7 @@
 - Added light-align + context-fit execution dispatch behavior.
 - Added Korean `뭔말알-알잘딱-Driven` positioning and `알잘딱` trigger support.
 - Added executor routes: Direct, Edit, Build, Research, Design, QA, and Safety Gate.
-- Added deterministic benchmark fixtures comparing v0.2.1 default alignment against v0.3.0 dispatch.
+- Added deterministic benchmark fixtures for dispatch overhead and rework risk.
 
 ### Changed
 

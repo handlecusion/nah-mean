@@ -6,7 +6,7 @@ nah-mean pauses ambiguous high-expectation agent requests, aligns explicit user 
 
 Canonical repo: https://github.com/handlecusion/nah-mean
 Docs site: https://handlecusion.github.io/nah-mean/
-Current release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.0
+Current release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.1
 License: MIT
 
 ## Install
@@ -20,7 +20,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned Codex install:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.3.1 --agent codex --scope user
 ```
 
 Claude Code:
@@ -45,6 +45,10 @@ npx skills add handlecusion/nah-mean --skill nah-mean -a codex -g -y
 - Generic adapter: https://github.com/handlecusion/nah-mean/blob/main/adapters/generic-agent.md
 - Benchmark: https://github.com/handlecusion/nah-mean/blob/main/benchmarks/results.md
 - Full AI discovery: https://github.com/handlecusion/nah-mean/blob/main/llms-full.txt
+
+## Benchmark Summary
+
+Baseline is vanilla agent behavior with no skill installed. Vanilla has lower upfront token overhead. nah-mean v0.3.1 improves expected rework units by 81.8%, coordination workload units by 38.2%, and estimated rework-adjusted seconds by 49.8% on the included deterministic fixture set.
 
 ## Supported Agents
 

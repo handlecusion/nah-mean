@@ -1,27 +1,47 @@
 {
   "fixture_count": 6,
-  "baseline": "v0.2.1 default alignment",
-  "current": "v0.3.0 light-align + context-fit dispatch",
+  "baseline": "vanilla agent (no skill)",
+  "current": "nah-mean v0.3.1 light-align + context-fit dispatch",
+  "assumptions": {
+    "benchmark_type": "deterministic protocol-risk estimate, not model quality benchmark",
+    "vanilla_input_context_token_proxy": 0,
+    "nah_mean_coordination_units_per_fixture": 2.0,
+    "seconds_per_rework_unit": 8.0,
+    "tokens_per_review_second": 4.0
+  },
   "metrics": {
-    "user_visible_alignment_tokens": {
-      "baseline": 39.5,
-      "current": 31.0,
-      "improvement_percent": 21.5
-    },
-    "alignment_workload_units": {
-      "baseline": 8.0,
-      "current": 4.0,
-      "improvement_percent": 50.0
-    },
-    "estimated_review_seconds": {
-      "baseline": 17.9,
-      "current": 11.8,
-      "improvement_percent": 34.3
+    "upfront_alignment_tokens": {
+      "vanilla": 0.0,
+      "nah_mean": 31.0,
+      "change": "+31.0 tokens",
+      "winner": "vanilla"
     },
     "input_context_token_proxy": {
-      "baseline": 388,
-      "current": 493,
-      "improvement_percent": -27.1
+      "vanilla": 0,
+      "nah_mean": 493,
+      "change": "+493 token proxy",
+      "winner": "vanilla"
+    },
+    "expected_rework_units": {
+      "vanilla": 4.6,
+      "nah_mean": 0.8,
+      "change": "81.8% lower",
+      "improvement_percent": 81.8,
+      "winner": "nah-mean"
+    },
+    "coordination_workload_units": {
+      "vanilla": 4.6,
+      "nah_mean": 2.8,
+      "change": "38.2% lower",
+      "improvement_percent": 38.2,
+      "winner": "nah-mean"
+    },
+    "estimated_rework_adjusted_seconds": {
+      "vanilla": 36.7,
+      "nah_mean": 18.4,
+      "change": "49.8% lower",
+      "improvement_percent": 49.8,
+      "winner": "nah-mean"
     }
   },
   "pass": true
