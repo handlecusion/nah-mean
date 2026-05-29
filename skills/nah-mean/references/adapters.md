@@ -50,6 +50,9 @@ fast_mode_triggers:
     - "just do it"
     - "skip confirmation"
     - "proceed without asking"
+post_work_correction_triggers:
+  korean:
+    - "감다뒤"
 memory_boundary: Runtime preference memory is separate from durable project memory.
 ```
 
@@ -69,6 +72,8 @@ First create a lightweight intent read:
 Then wait for confirmation before execution.
 
 If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking", give a one-sentence alignment, choose the route, and execute immediately.
+
+If the user says "감다뒤" after seeing the result, treat it as a post-work correction trigger. Do not defend the previous result or immediately patch it. First restate the intent you thought you were optimizing for, name where the result missed the user's intended sight, propose a corrected execution standard and route, then wait for confirmation before rework unless the user explicitly says to proceed.
 
 Maintain runtime preference memory from corrections, but do not claim durable persistence unless the framework provides it. Durable memory or wiki writes require explicit user request, repeated preference, or project-level rule.
 ```
@@ -135,6 +140,8 @@ Given a triggered request, a compliant agent should:
 - expose key uncertainty
 - ask no more than 1 to 3 questions
 - wait for confirmation unless fast mode is triggered
+- handle "감다뒤" as a post-work correction trigger, not a pre-execution trigger
+- realign original intent, missed sight, corrected standard, and route before rework
 - preserve current instruction over old memory
 - not claim durable memory without a real storage mechanism
 
@@ -163,3 +170,11 @@ Fast mode:
 ```
 
 Expected behavior: one short inline alignment, then execute.
+
+Post-work correction:
+
+```text
+감다뒤
+```
+
+Expected behavior: restate the previous intended direction, identify where the result missed the user's intended sight, propose a corrected standard and route, then wait before rework unless fast rework is requested.

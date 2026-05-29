@@ -8,7 +8,7 @@ English | [한국어](README.ko.md)
 
 nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a compact execution contract, and then chooses the smallest fitting executor route after confirmation unless fast mode is requested.
 
-Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`.
+Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`. For Korean users, `감다뒤` is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework.
 
 ## At A Glance
 
@@ -28,6 +28,7 @@ nah-mean is not a planning layer by default.
 
 - Light align: state intent, watchout, and standard in a few lines.
 - Context-fit dispatch: after confirmation, choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
+- Post-work correction: when a Korean user says `감다뒤` after a result, realign the missed intent before rework.
 - Goal: reduce prompt misreads with less user-visible alignment overhead.
 
 Tradeoff: nah-mean adds a small alignment step and skill context. It is meant for ambiguous work where that upfront cost is cheaper than polished rework.
@@ -39,6 +40,7 @@ Tradeoff: nah-mean adds a small alignment step and skill context. It is meant fo
 - Immediate execution would likely create rework because the expected tone, depth, audience, or format is implied rather than explicit.
 - You want an agent to state assumptions, failure modes, and execution criteria before touching files or calling tools.
 - You want the agent to choose the appropriate execution route after alignment instead of asking for an implementation plan.
+- A Korean user says `감다뒤` after a result and expects the agent to realign intent instead of defending or patching immediately.
 
 ## Do Not Use It When
 
@@ -101,6 +103,27 @@ Got it. This is cleanup, not product expansion, so the route is Edit: preserve s
 ```
 
 Then the agent executes.
+
+### Post-Work Correction
+
+User:
+
+```text
+감다뒤
+```
+
+Agent:
+
+```text
+감다뒤 인식.
+내가 잡았던 의도: quick, usable cleanup.
+어긋난 지점: the user wanted direction realignment, but the result only patched surface text.
+다시 맞출 sight: clarify what standard should drive the redo.
+재작업 기준: do not defend the previous result; reset scope and tone against the corrected standard.
+알잘딱 route: Edit.
+
+이 기준으로 다시 잡으면 된다.
+```
 
 ### Bad Result Prevented
 
@@ -226,6 +249,12 @@ Fast mode triggers:
 - `proceed without asking`
 
 Fast mode gives one short alignment, chooses the route, then executes.
+
+Post-work correction trigger:
+
+- `감다뒤`
+
+When this appears after a result, the agent should restate the intent it was optimizing for, name where the result missed the user's intended sight, propose a corrected standard and route, then wait before rework unless the user explicitly asks to proceed.
 
 ## Comparison
 

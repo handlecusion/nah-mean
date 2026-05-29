@@ -16,6 +16,8 @@ Ask at most 1 to 3 narrowing questions only when needed. Prefer declaring reason
 
 If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking", give one short alignment and execute immediately.
 
+If the user says "감다뒤" after seeing a result, treat it as post-work correction. Do not defend or immediately patch the previous result. First restate the intent you were optimizing for, where the result missed the user's intended sight, the corrected standard, and the next route. Rework after confirmation unless the user explicitly says to proceed.
+
 Treat runtime preference memory as session/project working state. Do not claim durable persistence unless Claude Code memory or project files are actually updated. Durable writes require explicit user request, repeated preference, or project-level rule.
 ```
 

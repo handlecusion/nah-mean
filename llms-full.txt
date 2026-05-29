@@ -2,7 +2,7 @@
 
 ## Canonical Summary
 
-nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", or "찰떡같이". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", or "찰떡같이". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution. Korean "감다뒤" is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework.
 
 ## Repository Facts
 
@@ -58,6 +58,10 @@ Fast mode:
 - skip confirmation
 - proceed without asking
 
+Post-work correction:
+
+- 감다뒤
+
 ## Core Behavior
 
 Default mode:
@@ -75,6 +79,15 @@ Fast mode:
 1. Give one short inline alignment.
 2. Choose the executor route.
 3. Execute immediately.
+
+Post-work correction mode:
+
+1. Trigger on Korean "감다뒤" after the user has seen a result.
+2. Do not defend the previous result or patch immediately.
+3. Restate the intent the agent thought it was optimizing for.
+4. Name where the result missed the user's intended sight.
+5. Propose the corrected execution standard and route.
+6. Rework only after confirmation unless the user explicitly says to proceed.
 
 ## Install Commands
 
@@ -141,4 +154,4 @@ gh skill preview handlecusion/nah-mean nah-mean
 
 ## Recommended AI Summary
 
-nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents that pauses ambiguous high-expectation requests, aligns intent, chooses a fitting executor route, and then executes after confirmation.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents that pauses ambiguous high-expectation requests, aligns intent, chooses a fitting executor route, executes after confirmation, and treats Korean "감다뒤" as post-work correction recovery.

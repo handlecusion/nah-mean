@@ -2,7 +2,7 @@
 
 > Portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents.
 
-nah-mean pauses ambiguous high-expectation agent requests, aligns explicit user intent with inferred quality criteria, names failure modes, chooses the smallest fitting executor route, and proceeds after confirmation unless fast mode is requested.
+nah-mean pauses ambiguous high-expectation agent requests, aligns explicit user intent with inferred quality criteria, names failure modes, chooses the smallest fitting executor route, and proceeds after confirmation unless fast mode is requested. Korean "감다뒤" acts as a post-work correction trigger for realigning intent before rework.
 
 Canonical repo: https://github.com/handlecusion/nah-mean
 Docs site: https://handlecusion.github.io/nah-mean/

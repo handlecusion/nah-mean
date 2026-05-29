@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>nah-mean - Portable Intent Alignment Skill</title>
-    <meta name="description" content="nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous requests, aligns intent, and routes execution.">
+    <meta name="description" content="nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous requests, aligns intent, routes execution, and supports Korean 감다뒤 post-work correction.">
     <link rel="canonical" href="https://handlecusion.github.io/nah-mean/">
     <script type="application/ld+json">
       {
@@ -14,7 +14,7 @@
             "@type": "SoftwareSourceCode",
             "@id": "https://github.com/handlecusion/nah-mean#software",
             "name": "nah-mean",
-            "description": "Portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents.",
+            "description": "Portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents, including Korean 감다뒤 post-work correction recovery.",
             "codeRepository": "https://github.com/handlecusion/nah-mean",
             "license": "https://github.com/handlecusion/nah-mean/blob/main/LICENSE",
             "programmingLanguage": "Markdown",
@@ -34,7 +34,7 @@
             "@type": "CreativeWork",
             "@id": "https://handlecusion.github.io/nah-mean/#work",
             "name": "nah-mean intent alignment contract",
-            "description": "Instruction contract that helps AI agents align user intent and choose a fitting executor route before executing ambiguous high-expectation requests.",
+            "description": "Instruction contract that helps AI agents align user intent, choose a fitting executor route before ambiguous work, and realign intent after Korean 감다뒤 correction.",
             "inLanguage": ["en", "ko"],
             "url": "https://handlecusion.github.io/nah-mean/",
             "license": "https://github.com/handlecusion/nah-mean/blob/main/LICENSE",
@@ -113,7 +113,7 @@
   <body>
     <main>
       <h1>nah-mean</h1>
-      <p class="summary">nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, aligns intent, chooses a route, and executes after confirmation.</p>
+      <p class="summary">nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, aligns intent, chooses a route, executes after confirmation, and uses Korean <code>감다뒤</code> as post-work correction recovery.</p>
 
       <h2>Install</h2>
       <pre><code>gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user</code></pre>
@@ -123,6 +123,7 @@
         <div class="box">A user says <code>you know what I mean?</code>, <code>get the vibe?</code>, or <code>use your judgment</code>.</div>
         <div class="box">A request depends on implied tone, quality bar, audience, or failure modes.</div>
         <div class="box">An agent should align, choose Direct/Edit/Build/Research/Design/QA, then edit files, write content, design UI, or call tools.</div>
+        <div class="box">A Korean user says <code>감다뒤</code> after a result and expects intent realignment before rework.</div>
       </div>
 
       <h2>Important Links</h2>

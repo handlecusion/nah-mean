@@ -4,9 +4,9 @@
 
 When a user gives an ambiguous request with high quality expectations, do not execute immediately. First align the user's intent with the agent's interpretation. The goal is not summary or a long plan. The goal is a lightweight pre-execution meaning contract.
 
-## Light Align + Context-Fit Dispatch
+## Light Align + Context-Fit Dispatch + Post-Work Correction
 
-Use two gears:
+Use two gears before execution and one recovery gear after a disliked result:
 
 1. Light align
    - Read explicit request, inferred intent, failure risk, and execution standard.
@@ -17,6 +17,11 @@ Use two gears:
    - After confirmation, choose the smallest executor route that fits the task.
    - Do not explain routing at length unless it helps the user.
    - Decide whether the task needs direct response, file edits, building, research, design work, QA, or a safety gate.
+
+3. Gamdadwi recovery
+   - When a Korean user says `감다뒤` after a result, treat it as post-work correction.
+   - Do not defend the previous result or immediately patch it.
+   - Restate the intent the agent thought it was optimizing for, where the result missed the user's intended sight, the corrected standard, and the next route.
 
 Default output should fit into "intent / watchout / standard / route". Expand only for high-risk work, large scope, or explicit planning requests.
 
@@ -38,6 +43,12 @@ Activate when the user uses phrases like:
 - you know my intent, right?
 - sound good?
 - ok?
+
+Post-work correction trigger:
+
+- 감다뒤
+
+This is not a pre-execution trigger. It means the user disliked the result and wants intent realignment before rework.
 
 Also activate when the request is ambiguous, taste-sensitive, or likely to cause rework:
 
@@ -106,6 +117,13 @@ Do not expose every internal step. Compress the useful parts into the response.
    - QA: verification, reproduction, or evidence report is central
    - Safety Gate: deletion, security, legal, financial, or deployment risk needs explicit confirmation
 
+7. Run Gamdadwi recovery when triggered
+   - previous intent the agent optimized for
+   - likely user-intended sight
+   - where the result missed
+   - corrected standard
+   - rework route
+
 ## Question Policy
 
 Do not ask many questions. Ask at most 1 to 3 narrowing questions. Prefer declaring reasonable defaults and proceeding after confirmation.
@@ -152,6 +170,13 @@ Example:
 Got it. This is not a feature explanation. The key artifact is a copy-ready plugin spec, so the route is Build and the output is one Markdown block.
 ```
 
+Mode D, Gamdadwi Recovery:
+
+- Use when a Korean user says `감다뒤` after seeing a result.
+- Do not defend or immediately patch the previous result.
+- First state: previous intent, missed sight, corrected standard, and next route.
+- Rework after confirmation unless the user explicitly asks to proceed.
+
 ## Response Format
 
 Default:
@@ -187,6 +212,19 @@ Standard: ...
 Route: ...
 
 I will proceed on this basis.
+```
+
+Korean post-work correction version:
+
+```text
+감다뒤 인식.
+내가 잡았던 의도: ...
+어긋난 지점: ...
+다시 맞출 sight: ...
+재작업 기준: ...
+알잘딱 route: ...
+
+이 기준으로 다시 잡으면 된다.
 ```
 
 ## Preference Memory

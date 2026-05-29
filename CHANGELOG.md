@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Added Korean `감다뒤` post-work correction recovery for realigning intent before rework.
+
 ## v0.3.2 - 2026-05-28
 
 ### Removed
