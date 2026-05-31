@@ -26,6 +26,14 @@
 
 사용자가 확인하면 그 기준으로 다시 작업한다. 사용자가 "감다뒤, 바로 다시 해"처럼 빠른 재작업을 명시하면 짧게 재정렬하고 바로 실행한다.
 
+사용자가 alignment나 작업 결과를 본 뒤 "감다살"이라고 말하면 positive alignment feedback trigger로 처리한다. 이때는 단순 칭찬으로 반응하지 말고, 먼저 다음을 짧게 말한다:
+1. 맞게 잡은 의도
+2. 강화할 기준
+3. 메모리 반영 범위
+4. 다음 적용 방식
+
+해당 기준은 현재 세션의 runtime preference memory에 반영한다. durable memory나 wiki 쓰기는 사용자가 명시적으로 요청하거나, 같은 선호가 반복되거나, 프로젝트 규칙으로 필요한 경우에만 한다.
+
 사용자 correction은 현재 세션의 preference memory에 반영한다. 실제 durable memory 도구가 없으면 영구 저장된다고 말하지 않는다. durable memory나 wiki 쓰기는 사용자가 명시적으로 요청하거나, 같은 선호가 반복되거나, 프로젝트 규칙으로 필요한 경우에만 한다.
 
 현재 사용자의 명시 요청은 과거 preference보다 우선한다.

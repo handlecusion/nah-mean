@@ -4,9 +4,9 @@
 
 사용자가 모호하지만 높은 품질을 기대하는 요청을 했을 때 바로 실행하지 말고, 먼저 사용자 의도와 에이전트 해석을 맞춘다. 목표는 요약이나 긴 plan이 아니라 실행 전 의미 계약이다.
 
-## 뭔말알-알잘딱-감다뒤 Workflow
+## 뭔말알-알잘딱-감다뒤-감다살 Workflow
 
-기본 실행 전에는 두 단계를 쓴다. 작업 후 결과가 마음에 안 들 때는 사후 recovery 단계인 `감다뒤`를 쓴다.
+기본 실행 전에는 두 단계를 쓴다. 작업 후 결과가 마음에 안 들 때는 사후 recovery 단계인 `감다뒤`를 쓴다. 의도가 정확히 잡혔다는 긍정 신호는 `감다살`로 memory에 반영한다.
 
 1. `[뭔말알]`: plan보다 가벼운 intent read
    - 명시 요청, 암묵 의도, 실패 위험, 실행 기준만 짧게 잡는다.
@@ -23,6 +23,12 @@
    - 실행 전 trigger가 아니라 작업 후에 말하는 키워드다.
    - 변명하거나 바로 땜질하지 말고, 당시 잡았던 의도와 어긋난 지점을 먼저 말한다.
    - 서로의 sight를 다시 맞춘 뒤 재작업 기준과 route를 잡는다.
+
+4. `[감다살]`: 긍정 alignment feedback
+   - 사용자가 "의도가 정확히 표현됐다"는 긍정 신호를 주는 키워드다.
+   - 칭찬에 대한 감정적 반응이 아니라 memory reinforcement로 처리한다.
+   - 무엇이 정확히 맞았는지 짧게 재진술하고, 해당 기준을 runtime preference memory에 반영한다.
+   - durable memory나 wiki 저장은 사용자가 명시했거나, 같은 선호가 반복되거나, 프로젝트 규칙이 요구할 때만 한다.
 
 기본 출력은 "의도 / 주의 / 기준 / route" 정도로 끝낸다. 고위험 작업, 범위 큰 작업, 사용자가 명시적으로 계획을 요구한 작업에서만 plan을 넓힌다.
 
@@ -49,6 +55,12 @@
 - 감다뒤
 
 `감다뒤`는 사용자가 작업 결과를 본 뒤 말하는 키워드다. 이때는 새 작업을 바로 시작하지 말고, 이전 작업에서 에이전트가 잡았던 의도와 사용자가 원한 방향의 차이를 먼저 맞춘다.
+
+다음 표현은 positive alignment feedback trigger로 활성화한다:
+
+- 감다살
+
+`감다살`은 사용자가 "방금 잡은 의도/기준/해석이 맞다"고 확인하는 키워드다. 이때는 어떤 해석이 맞았는지 명시하고, 그 기준을 이후 작업에 적용할 runtime memory 후보로 강화한다.
 
 표현이 없어도 다음 작업이 모호하고 재작업 가능성이 높으면 활성화한다:
 
@@ -124,6 +136,13 @@
    - 다시 맞출 기준
    - 재작업 route
 
+8. 감다살 positive feedback 실행
+   - 정확히 맞았던 의도/기준/해석
+   - 강화할 preference
+   - 적용 범위: 현재 작업, 프로젝트, 또는 안정 선호 후보
+   - runtime memory 반영
+   - durable memory 저장 필요 여부
+
 ## 질문 정책
 
 질문을 많이 던지지 않는다. 최대 1-3개만 묻는다. 가능하면 합리적 기본값을 선언하고 진행한다.
@@ -177,6 +196,14 @@ Mode D, Gamdadwi Recovery:
 - 사용자가 확인하면 그 기준으로 다시 작업한다.
 - 사용자가 `감다뒤, 바로 다시 해`처럼 빠른 재작업을 명시하면 짧게 재정렬하고 바로 실행한다.
 
+Mode E, Gamdasal Reinforcement:
+
+- 사용자가 작업 후 또는 alignment 후 `감다살`이라고 말할 때 쓴다.
+- 의도가 정확히 표현됐다는 positive feedback으로 처리한다.
+- 먼저 "맞게 잡은 의도 / 강화할 기준 / 메모리 반영 / 다음 적용"을 짧게 말한다.
+- 해당 기준을 current-session runtime preference memory에 반영한다.
+- durable memory나 wiki 저장은 명시 요청, 반복 선호, 프로젝트 규칙이 있을 때만 한다.
+
 ## 응답 형식
 
 기본:
@@ -225,6 +252,16 @@ Mode D, Gamdadwi Recovery:
 알잘딱 route: ...
 
 이 기준으로 다시 잡으면 된다.
+```
+
+감다살 버전:
+
+```text
+감다살 인식.
+맞게 잡은 의도: ...
+강화할 기준: ...
+메모리 반영: runtime preference에 반영. durable 저장은 조건 충족 시만.
+다음 적용: ...
 ```
 
 ## Preference Memory
@@ -276,6 +313,20 @@ Mode D, Gamdadwi Recovery:
   "updated_preference": "...",
   "confidence": 0.0,
   "scope": "temporary | project | stable"
+}
+```
+
+사용자 positive feedback이 있으면 내부적으로 강화한다:
+
+```json
+{
+  "event": "positive_feedback",
+  "domain": "...",
+  "trigger": "감다살",
+  "matched_interpretation": "...",
+  "reinforced_preference": "...",
+  "confidence_delta": 0.0,
+  "scope": "temporary | project | stable_candidate"
 }
 ```
 

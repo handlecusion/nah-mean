@@ -4,9 +4,9 @@
 
 When a user gives an ambiguous request with high quality expectations, do not execute immediately. First align the user's intent with the agent's interpretation. The goal is not summary or a long plan. The goal is a lightweight pre-execution meaning contract.
 
-## Light Align + Context-Fit Dispatch + Post-Work Correction
+## Light Align + Context-Fit Dispatch + Post-Work Feedback
 
-Use two gears before execution and one recovery gear after a disliked result:
+Use two gears before execution, one recovery gear after a disliked result, and one reinforcement gear when intent was captured accurately:
 
 1. Light align
    - Read explicit request, inferred intent, failure risk, and execution standard.
@@ -22,6 +22,12 @@ Use two gears before execution and one recovery gear after a disliked result:
    - When a Korean user says `감다뒤` after a result, treat it as post-work correction.
    - Do not defend the previous result or immediately patch it.
    - Restate the intent the agent thought it was optimizing for, where the result missed the user's intended sight, the corrected standard, and the next route.
+
+4. Gamdasal reinforcement
+   - When a Korean user says `감다살`, treat it as positive alignment feedback.
+   - Do not respond as if it is generic praise.
+   - Restate what intent, standard, or preference was captured correctly and reinforce it in runtime preference memory.
+   - Write durable memory only when the user explicitly asks, the preference repeats, or project rules require it.
 
 Default output should fit into "intent / watchout / standard / route". Expand only for high-risk work, large scope, or explicit planning requests.
 
@@ -49,6 +55,12 @@ Post-work correction trigger:
 - 감다뒤
 
 This is not a pre-execution trigger. It means the user disliked the result and wants intent realignment before rework.
+
+Positive alignment feedback trigger:
+
+- 감다살
+
+This means the user confirms the agent expressed the user's intent accurately. Reinforce the matched interpretation as a runtime memory candidate for future relevant work.
 
 Also activate when the request is ambiguous, taste-sensitive, or likely to cause rework:
 
@@ -124,6 +136,13 @@ Do not expose every internal step. Compress the useful parts into the response.
    - corrected standard
    - rework route
 
+8. Run Gamdasal reinforcement when triggered
+   - exact intent, standard, or interpretation that matched
+   - preference to reinforce
+   - scope: current task, project, or stable candidate
+   - runtime memory update
+   - whether durable memory is warranted
+
 ## Question Policy
 
 Do not ask many questions. Ask at most 1 to 3 narrowing questions. Prefer declaring reasonable defaults and proceeding after confirmation.
@@ -177,6 +196,14 @@ Mode D, Gamdadwi Recovery:
 - First state: previous intent, missed sight, corrected standard, and next route.
 - Rework after confirmation unless the user explicitly asks to proceed.
 
+Mode E, Gamdasal Reinforcement:
+
+- Use when a Korean user says `감다살` after alignment or a result.
+- Treat it as positive feedback that the intent was captured accurately.
+- First state: matched intent, reinforced standard, memory update, and next application.
+- Update current-session runtime preference memory.
+- Write durable memory or wiki only on explicit request, repeated preference, or project rule.
+
 ## Response Format
 
 Default:
@@ -225,6 +252,16 @@ Korean post-work correction version:
 알잘딱 route: ...
 
 이 기준으로 다시 잡으면 된다.
+```
+
+Korean positive feedback version:
+
+```text
+감다살 인식.
+맞게 잡은 의도: ...
+강화할 기준: ...
+메모리 반영: runtime preference에 반영. durable 저장은 조건 충족 시만.
+다음 적용: ...
 ```
 
 ## Preference Memory
@@ -276,6 +313,20 @@ When the user corrects the agent, update internal working memory:
   "updated_preference": "...",
   "confidence": 0.0,
   "scope": "temporary | project | stable"
+}
+```
+
+When the user gives positive alignment feedback, reinforce internal working memory:
+
+```json
+{
+  "event": "positive_feedback",
+  "domain": "...",
+  "trigger": "감다살",
+  "matched_interpretation": "...",
+  "reinforced_preference": "...",
+  "confidence_delta": 0.0,
+  "scope": "temporary | project | stable_candidate"
 }
 ```
 

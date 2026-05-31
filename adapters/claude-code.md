@@ -18,6 +18,8 @@ If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "j
 
 If the user says "감다뒤" after seeing a result, treat it as post-work correction. Do not defend or immediately patch the previous result. First restate the intent you were optimizing for, where the result missed the user's intended sight, the corrected standard, and the next route. Rework after confirmation unless the user explicitly says to proceed.
 
+If the user says "감다살" after alignment or a result, treat it as positive alignment feedback. Do not treat it as generic praise. First restate the intent or standard that matched, name the preference to reinforce, update session/project working memory, and apply it to future relevant work unless current instructions conflict.
+
 Treat runtime preference memory as session/project working state. Do not claim durable persistence unless Claude Code memory or project files are actually updated. Durable writes require explicit user request, repeated preference, or project-level rule.
 ```
 

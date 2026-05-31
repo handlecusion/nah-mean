@@ -27,6 +27,8 @@ Fast mode triggers include "바로 해", "확인 생략", "질문하지 말고 �
 
 Post-work correction trigger includes Korean "감다뒤". When it appears after a result, restate the intent being optimized, name where the result missed the user's intended sight, propose the corrected standard and route, then wait before rework unless the user explicitly says to proceed.
 
+Positive alignment feedback trigger includes Korean "감다살". When it appears after alignment or a result, restate the intent or standard that matched, reinforce that preference in runtime state, and do not claim durable memory unless durable storage is updated.
+
 Do not call target-task tools before alignment completes. Reading durable preferences is allowed only if the framework provides such storage and policy allows it.
 ```
 

@@ -4,6 +4,7 @@
 
 ### Added
 
+- Added Korean `감다살` positive alignment feedback for reinforcing matched intent in memory.
 - Added Korean `감다뒤` post-work correction recovery for realigning intent before rework.
 
 ## v0.3.2 - 2026-05-28

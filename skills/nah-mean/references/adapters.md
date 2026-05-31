@@ -53,6 +53,9 @@ fast_mode_triggers:
 post_work_correction_triggers:
   korean:
     - "감다뒤"
+positive_alignment_feedback_triggers:
+  korean:
+    - "감다살"
 memory_boundary: Runtime preference memory is separate from durable project memory.
 ```
 
@@ -74,6 +77,8 @@ Then wait for confirmation before execution.
 If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking", give a one-sentence alignment, choose the route, and execute immediately.
 
 If the user says "감다뒤" after seeing the result, treat it as a post-work correction trigger. Do not defend the previous result or immediately patch it. First restate the intent you thought you were optimizing for, name where the result missed the user's intended sight, propose a corrected execution standard and route, then wait for confirmation before rework unless the user explicitly says to proceed.
+
+If the user says "감다살" after alignment or a result, treat it as a positive alignment feedback trigger. Do not treat it as generic praise. First restate the intent or standard that was captured correctly, name the preference to reinforce, update current-session runtime preference memory, and apply it to the next relevant work unless current instructions conflict.
 
 Maintain runtime preference memory from corrections, but do not claim durable persistence unless the framework provides it. Durable memory or wiki writes require explicit user request, repeated preference, or project-level rule.
 ```
@@ -142,6 +147,8 @@ Given a triggered request, a compliant agent should:
 - wait for confirmation unless fast mode is triggered
 - handle "감다뒤" as a post-work correction trigger, not a pre-execution trigger
 - realign original intent, missed sight, corrected standard, and route before rework
+- handle "감다살" as positive alignment feedback, not generic praise
+- reinforce matched intent or standard in runtime memory
 - preserve current instruction over old memory
 - not claim durable memory without a real storage mechanism
 
@@ -178,3 +185,11 @@ Post-work correction:
 ```
 
 Expected behavior: restate the previous intended direction, identify where the result missed the user's intended sight, propose a corrected standard and route, then wait before rework unless fast rework is requested.
+
+Positive alignment feedback:
+
+```text
+감다살
+```
+
+Expected behavior: restate the intent or standard that matched, reinforce it in runtime preference memory, and avoid durable memory claims unless a real durable store is updated.

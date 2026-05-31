@@ -8,7 +8,7 @@ English | [한국어](README.ko.md)
 
 nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a compact execution contract, and then chooses the smallest fitting executor route after confirmation unless fast mode is requested.
 
-Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`. For Korean users, `감다뒤` is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework.
+Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`. For Korean users, `감다뒤` is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework. `감다살` is positive alignment feedback: when intent was captured accurately, the agent reinforces that standard in memory.
 
 ## At A Glance
 
@@ -29,6 +29,7 @@ nah-mean is not a planning layer by default.
 - Light align: state intent, watchout, and standard in a few lines.
 - Context-fit dispatch: after confirmation, choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
 - Post-work correction: when a Korean user says `감다뒤` after a result, realign the missed intent before rework.
+- Positive feedback reinforcement: when a Korean user says `감다살`, reinforce the matched intent in runtime memory.
 - Goal: reduce prompt misreads with less user-visible alignment overhead.
 
 Tradeoff: nah-mean adds a small alignment step and skill context. It is meant for ambiguous work where that upfront cost is cheaper than polished rework.
@@ -41,6 +42,7 @@ Tradeoff: nah-mean adds a small alignment step and skill context. It is meant fo
 - You want an agent to state assumptions, failure modes, and execution criteria before touching files or calling tools.
 - You want the agent to choose the appropriate execution route after alignment instead of asking for an implementation plan.
 - A Korean user says `감다뒤` after a result and expects the agent to realign intent instead of defending or patching immediately.
+- A Korean user says `감다살` after a result and expects the agent to remember what interpretation or standard was correct.
 
 ## Do Not Use It When
 
@@ -123,6 +125,24 @@ Agent:
 알잘딱 route: Edit.
 
 이 기준으로 다시 잡으면 된다.
+```
+
+### Positive Alignment Feedback
+
+User:
+
+```text
+감다살
+```
+
+Agent:
+
+```text
+감다살 인식.
+맞게 잡은 의도: "감다뒤" is a post-work dissatisfaction signal, so the agent should realign sight before rework.
+강화할 기준: feedback keywords are memory signals that change the next action, not generic praise or complaint.
+메모리 반영: runtime preference에 반영. durable 저장은 명시 요청, 반복, 프로젝트 규칙이 있을 때만.
+다음 적용: similar keyword requests should be interpreted through intent, standard, and memory impact first.
 ```
 
 ### Bad Result Prevented
@@ -255,6 +275,12 @@ Post-work correction trigger:
 - `감다뒤`
 
 When this appears after a result, the agent should restate the intent it was optimizing for, name where the result missed the user's intended sight, propose a corrected standard and route, then wait before rework unless the user explicitly asks to proceed.
+
+Positive alignment feedback trigger:
+
+- `감다살`
+
+When this appears after alignment or a result, the agent should restate what intent or standard matched, reinforce that preference in runtime memory, and avoid durable memory claims unless a real durable store is updated.
 
 ## Comparison
 

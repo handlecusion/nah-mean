@@ -2,7 +2,7 @@
 
 ## Canonical Summary
 
-nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", or "찰떡같이". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution. Korean "감다뒤" is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", or "찰떡같이". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution. Korean "감다뒤" is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework. Korean "감다살" is positive alignment feedback: when intent was captured accurately, the agent reinforces that standard in memory.
 
 ## Repository Facts
 
@@ -62,6 +62,10 @@ Post-work correction:
 
 - 감다뒤
 
+Positive alignment feedback:
+
+- 감다살
+
 ## Core Behavior
 
 Default mode:
@@ -88,6 +92,15 @@ Post-work correction mode:
 4. Name where the result missed the user's intended sight.
 5. Propose the corrected execution standard and route.
 6. Rework only after confirmation unless the user explicitly says to proceed.
+
+Positive alignment feedback mode:
+
+1. Trigger on Korean "감다살" after alignment or a result.
+2. Do not treat it as generic praise.
+3. Restate the intent, standard, or interpretation that matched.
+4. Reinforce the preference in runtime memory.
+5. Write durable memory only on explicit request, repeated preference, or project rule.
+6. Apply the reinforced preference to future relevant work unless current instructions conflict.
 
 ## Install Commands
 
@@ -154,4 +167,4 @@ gh skill preview handlecusion/nah-mean nah-mean
 
 ## Recommended AI Summary
 
-nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents that pauses ambiguous high-expectation requests, aligns intent, chooses a fitting executor route, executes after confirmation, and treats Korean "감다뒤" as post-work correction recovery.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents that pauses ambiguous high-expectation requests, aligns intent, chooses a fitting executor route, executes after confirmation, treats Korean "감다뒤" as post-work correction recovery, and treats Korean "감다살" as positive alignment feedback for runtime memory reinforcement.

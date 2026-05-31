@@ -6,9 +6,9 @@
 
 [English](README.md) | 한국어
 
-nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignment skill이다. 사용자가 모호하지만 높은 품질을 기대하는 요청을 했을 때 바로 실행하지 않고, 명시 요청과 암묵적 품질 기준을 짧게 정리한 뒤 확인을 받고 진행한다. 확인 뒤에는 `알잘딱` route로 Direct, Edit, Build, Research, Design, QA, Safety Gate 중 최소 적합 executor를 고른다. 작업 후 사용자가 `감다뒤`라고 말하면, 이전 작업 의도를 다시 말하고 서로의 sight를 맞춘 뒤 재작업 기준을 잡는다.
+nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignment skill이다. 사용자가 모호하지만 높은 품질을 기대하는 요청을 했을 때 바로 실행하지 않고, 명시 요청과 암묵적 품질 기준을 짧게 정리한 뒤 확인을 받고 진행한다. 확인 뒤에는 `알잘딱` route로 Direct, Edit, Build, Research, Design, QA, Safety Gate 중 최소 적합 executor를 고른다. 작업 후 사용자가 `감다뒤`라고 말하면, 이전 작업 의도를 다시 말하고 서로의 sight를 맞춘 뒤 재작업 기준을 잡는다. `감다살`은 의도가 정확히 표현됐다는 positive feedback으로 보고 해당 기준을 memory에 강화한다.
 
-사용자가 `뭔말알?`, `뭔말인지 알지?`, `이 느낌 알지?`, `이 방향 맞지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현을 붙일 때 쓴다. `감다뒤`는 실행 전 trigger가 아니라 작업 후 correction trigger다.
+사용자가 `뭔말알?`, `뭔말인지 알지?`, `이 느낌 알지?`, `이 방향 맞지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현을 붙일 때 쓴다. `감다뒤`와 `감다살`은 실행 전 trigger가 아니라 작업 후 feedback trigger다.
 
 ## 한눈에 보기
 
@@ -29,6 +29,7 @@ nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignme
 - `[뭔말알]`: 사용자의 말끝에 숨은 의도, 실패 위험, 실행 기준만 짧게 잡는다.
 - `[알잘딱]`: 확인 뒤 상황에 맞는 executor route를 고른다.
 - `[감다뒤]`: 작업 후 결과가 마음에 안 들 때, 에이전트가 잡았던 의도와 사용자가 원한 sight를 다시 맞춘다.
+- `[감다살]`: 의도가 정확히 표현됐을 때, 맞은 기준을 runtime memory에 강화한다.
 - 목표: 더 적은 토큰과 더 적은 질문으로, 실행 전 오해를 줄이는 것.
 
 유쾌한 이름이지만 성능 기준은 진지하게 잡는다. 다만 이 skill은 magic token saver가 아니다. 짧은 alignment 비용을 먼저 내고, 잘못된 방향의 재작업을 줄이는 쪽에 가깝다.
@@ -41,6 +42,7 @@ nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignme
 - 파일 수정이나 도구 호출 전에 agent가 가정, 실패 방향, 실행 기준을 먼저 말해주길 원함.
 - 확인 뒤에는 agent가 Direct/Edit/Build/Research/Design/QA 중 맞는 실행 route를 알아서 고르길 원함.
 - 작업 후 결과가 마음에 안 들어 `감다뒤`라고 했을 때 agent가 변명이나 즉시 땜질 대신 의도 재정렬부터 하길 원함.
+- 작업 후 `감다살`이라고 했을 때 정확히 맞은 해석을 agent가 memory 후보로 강화하길 원함.
 
 ## 이런 경우 사용하지 않음
 
@@ -123,6 +125,24 @@ Agent:
 알잘딱 route: Edit.
 
 이 기준으로 다시 잡으면 된다.
+```
+
+### 감다살 Reinforcement
+
+사용자:
+
+```text
+감다살
+```
+
+Agent:
+
+```text
+감다살 인식.
+맞게 잡은 의도: "감다뒤"는 작업 후 불만족 신호이고, 바로 재수정이 아니라 sight 재정렬부터 해야 한다.
+강화할 기준: feedback keyword는 칭찬/불만 반응이 아니라 다음 행동을 바꾸는 memory signal로 처리한다.
+메모리 반영: runtime preference에 반영. durable 저장은 명시 요청, 반복, 프로젝트 규칙이 있을 때만.
+다음 적용: 비슷한 keyword 요청은 먼저 의도/기준/메모리 영향으로 해석한다.
 ```
 
 ### 방지되는 나쁜 결과
@@ -254,6 +274,12 @@ Post-work correction trigger:
 - `감다뒤`
 
 `감다뒤`는 작업 후 결과가 마음에 안 들 때 쓰는 키워드다. agent는 이전 결과를 방어하거나 바로 땜질하지 않는다. 먼저 자신이 잡았던 의도, 어긋난 지점, 다시 맞출 sight, 재작업 기준, route를 짧게 말한 뒤 확인을 받고 다시 작업한다.
+
+Positive alignment feedback trigger:
+
+- `감다살`
+
+`감다살`은 작업 후 의도나 기준이 정확히 표현됐을 때 쓰는 키워드다. agent는 단순 칭찬으로 처리하지 않는다. 무엇이 맞았는지, 어떤 기준을 강화할지, memory에 어떻게 반영할지, 다음 작업에 어떻게 적용할지 짧게 말한다.
 
 ## 비교
 

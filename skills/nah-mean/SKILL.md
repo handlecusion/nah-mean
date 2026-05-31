@@ -1,15 +1,16 @@
 ---
 name: nah-mean
-description: Lightweight intent alignment and context-fit execution dispatch for ambiguous or high-expectation requests. Use when a user says Korean triggers like "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "you get the direction?", "make it fit", "use your judgment", "handle it cleanly", "you know the intent?", especially for design, writing, research, planning, prompt/agent design, code structure, automation workflows, presentations, business plans, and other work where executing immediately risks rework. Also use when a Korean user says "감다뒤" after work to restate the original intent and realign the shared sight before rework.
+description: Lightweight intent alignment and context-fit execution dispatch for ambiguous or high-expectation requests. Use when a user says Korean triggers like "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "you get the direction?", "make it fit", "use your judgment", "handle it cleanly", "you know the intent?", especially for design, writing, research, planning, prompt/agent design, code structure, automation workflows, presentations, business plans, and other work where executing immediately risks rework. Also use when a Korean user says "감다뒤" after work to restate the original intent and realign the shared sight before rework, or "감다살" to reinforce an accurately captured intent into memory.
 ---
 
 # Nah Mean
 
-Use this skill in three gears:
+Use this skill in four gears:
 
 - **Nah-Mean**: lightweight intent read before execution. This is not a full plan.
 - **Aljalttak**: choose the smallest fitting executor route after confirmation or fast-mode trigger.
 - **Gamdadwi**: post-work correction recovery when the user disliked the result and wants the agent to realign intent before rework.
+- **Gamdasal**: positive alignment feedback when the user confirms the agent captured intent accurately and wants that signal reflected in memory.
 
 ## Core Behavior
 
@@ -37,6 +38,16 @@ When the user says "감다뒤" after seeing a result, treat it as a correction t
 3. Name where the result likely missed the user's intended sight.
 4. Propose the corrected execution standard and Aljalttak route.
 5. Rework only after the user confirms, unless they explicitly tell you to proceed.
+
+Positive alignment feedback mode:
+
+When the user says "감다살" after an alignment or result, treat it as a positive feedback trigger that the user's intent was accurately expressed.
+
+1. Briefly acknowledge the matched intent without praise or celebration.
+2. Restate the exact interpretation, standard, or preference that should be reinforced.
+3. Update runtime preference memory from that feedback.
+4. Write durable memory only when the user explicitly asks, the preference repeats, or project rules require it.
+5. Apply the reinforced preference to the next relevant work unless current instructions conflict.
 
 ## Aljalttak Dispatch
 
@@ -79,6 +90,16 @@ Short Korean correction shape:
 알잘딱 route: ...
 
 이 기준으로 다시 잡으면 된다.
+```
+
+Short Korean positive feedback shape:
+
+```text
+감다살 인식.
+맞게 잡은 의도: ...
+강화할 기준: ...
+메모리 반영: runtime preference에 반영. durable 저장은 조건 충족 시만.
+다음 적용: ...
 ```
 
 Short English shape:

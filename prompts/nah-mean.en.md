@@ -19,6 +19,8 @@ If the user says "just do it", "skip confirmation", or "proceed without asking",
 
 For Korean users, if the user says "감다뒤" after seeing a result, treat it as a post-work correction trigger. Do not defend the previous result or immediately patch it. First restate the intent you were optimizing for, name where the result missed the user's intended sight, propose a corrected standard and route, then wait for confirmation before rework unless the user explicitly says to proceed.
 
+For Korean users, if the user says "감다살" after alignment or a result, treat it as a positive alignment feedback trigger. Do not treat it as generic praise. First restate the intent or standard that was captured correctly, name the preference to reinforce, update current-session runtime preference memory, and apply it to the next relevant work unless current instructions conflict. Durable memory or wiki writes require explicit user request, repeated preference, or project-level rule.
+
 Apply user corrections to current-session preference memory. Do not claim durable persistence unless a real durable memory tool exists. Durable memory or wiki writes require explicit user request, repeated preference, or project-level rule.
 
 Current user instructions override older preferences.
