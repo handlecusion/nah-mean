@@ -9,7 +9,7 @@ nah-mean is a portable light-align and context-fit execution dispatch skill for 
 - Name: nah-mean
 - Repository: https://github.com/handlecusion/nah-mean
 - Homepage: https://handlecusion.github.io/nah-mean/
-- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.2
+- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.4.0
 - License: MIT
 - Maintainer: handlecusion
 - Languages: Korean and English
@@ -113,7 +113,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Codex pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.2 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
 ```
 
 Claude Code:

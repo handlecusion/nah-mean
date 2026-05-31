@@ -6,7 +6,7 @@ nah-mean pauses ambiguous high-expectation agent requests, aligns explicit user 
 
 Canonical repo: https://github.com/handlecusion/nah-mean
 Docs site: https://handlecusion.github.io/nah-mean/
-Current release: https://github.com/handlecusion/nah-mean/releases/tag/v0.3.2
+Current release: https://github.com/handlecusion/nah-mean/releases/tag/v0.4.0
 License: MIT
 
 ## Install
@@ -20,7 +20,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned Codex install:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.2 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
 ```
 
 Claude Code:

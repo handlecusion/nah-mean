@@ -19,7 +19,7 @@ nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignme
 | 핵심 파일 | `skills/nah-mean/SKILL.md` |
 | 지원 대상 | Codex, Claude Code, Agent Skills 호환 클라이언트, prompt-only agent |
 | 언어 | 한국어와 영어 |
-| 현재 릴리스 | `v0.3.2` |
+| 현재 릴리스 | `v0.4.0` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## 뭔말알-알잘딱-Driven
@@ -192,7 +192,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 고정 버전:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.2 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
 ```
 
 로컬 checkout:

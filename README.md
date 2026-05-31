@@ -19,7 +19,7 @@ Use it when a user says things like `you know what I mean?`, `get the vibe?`, `u
 | Main artifact | `skills/nah-mean/SKILL.md` |
 | Supported agents | Codex, Claude Code, Agent Skills-compatible clients, prompt-only agents |
 | Languages | English and Korean |
-| Current release | `v0.3.2` |
+| Current release | `v0.4.0` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## Light Align, Then Dispatch
@@ -192,7 +192,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.3.2 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
 ```
 
 Local checkout:
