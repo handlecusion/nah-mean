@@ -2,14 +2,14 @@
 
 ## Canonical Summary
 
-nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", or "찰떡같이". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution. Korean "감다뒤" is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework. Korean "감다살" is positive alignment feedback: when intent was captured accurately, the agent reinforces that standard in memory.
+nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. In English contexts, it activates on phrases like "you know what I mean?", "get the vibe?", "use your judgment", "handle it cleanly", or "make it fit". In Korean contexts, it activates on phrases like "뭔말알?", "이 느낌 알지?", "알아서 잘", "알잘딱", "찰떡같이", and their initial-consonant aliases such as "ㅁㅁㅇ", "ㅇㄴㄲㅇㅈ", "ㅇㅇㅅㅈ", "ㅇㅈㄸ", and "ㅊㄸㄱㅇ". The agent first states intent, watchout, execution standard, and executor route, then waits for confirmation before execution. Korean "감다뒤" or "ㄱㄷㄷ" is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework. Korean "감다살" or "ㄱㄷㅅ" is positive alignment feedback: when intent was captured accurately, the agent reinforces that standard in memory.
 
 ## Repository Facts
 
 - Name: nah-mean
 - Repository: https://github.com/handlecusion/nah-mean
 - Homepage: https://handlecusion.github.io/nah-mean/
-- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.4.0
+- Release: https://github.com/handlecusion/nah-mean/releases/tag/v0.5.0
 - License: MIT
 - Maintainer: handlecusion
 - Languages: Korean and English
@@ -22,17 +22,31 @@ nah-mean is a portable light-align and context-fit execution dispatch skill for 
 Korean:
 
 - 뭔말알?
+- ㅁㅁㅇ
 - 뭔말인지 알지?
+- ㅁㅁㅇㅈㅇㅈ
 - 무슨 느낌인지 알지?
+- ㅁㅅㄴㄲㅇㅈㅇㅈ
+- 이 느낌 알지?
+- ㅇㄴㄲㅇㅈ
 - 이 방향 알지?
+- ㅇㅂㅎㅇㅈ
 - 이 방향 맞지?
+- ㅇㅂㅎㅁㅈ
 - 이런 느낌으로
+- ㅇㄹㄴㄲㅇㄹ
 - 감 잡았지?
+- ㄱㅈㅇㅈ
 - 대충 이런 거
+- ㄷㅊㅇㄹㄱ
 - 알아서 잘
+- ㅇㅇㅅㅈ
 - 알잘딱
+- ㅇㅈㄸ
 - 찰떡같이
+- ㅊㄸㄱㅇ
 - 내 의도 알겠지?
+- ㄴㅇㄷㅇㄱㅈ
 
 English:
 
@@ -52,8 +66,11 @@ English:
 Fast mode:
 
 - 바로 해
+- ㅂㄹㅎ
 - 확인 생략
+- ㅎㅇㅅㄹ
 - 질문하지 말고 진행
+- ㅈㅁㅎㅈㅁㄱㅈㅎ
 - just do it
 - skip confirmation
 - proceed without asking
@@ -61,10 +78,12 @@ Fast mode:
 Post-work correction:
 
 - 감다뒤
+- ㄱㄷㄷ
 
 Positive alignment feedback:
 
 - 감다살
+- ㄱㄷㅅ
 
 ## Core Behavior
 
@@ -86,7 +105,7 @@ Fast mode:
 
 Post-work correction mode:
 
-1. Trigger on Korean "감다뒤" after the user has seen a result.
+1. Trigger on Korean "감다뒤" or "ㄱㄷㄷ" after the user has seen a result.
 2. Do not defend the previous result or patch immediately.
 3. Restate the intent the agent thought it was optimizing for.
 4. Name where the result missed the user's intended sight.
@@ -95,7 +114,7 @@ Post-work correction mode:
 
 Positive alignment feedback mode:
 
-1. Trigger on Korean "감다살" after alignment or a result.
+1. Trigger on Korean "감다살" or "ㄱㄷㅅ" after alignment or a result.
 2. Do not treat it as generic praise.
 3. Restate the intent, standard, or interpretation that matched.
 4. Reinforce the preference in runtime memory.
@@ -113,7 +132,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Codex pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.5.0 --agent codex --scope user
 ```
 
 Claude Code:

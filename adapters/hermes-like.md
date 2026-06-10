@@ -19,15 +19,15 @@ tools:
 ## Instruction Block
 
 ```text
-Install nah-mean as an intent alignment layer. When trigger phrases appear, pause target-task execution and produce an execution contract. Trigger phrases include Korean "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "알아서 잘", and English "you know what I mean?", "get the vibe?", "get the direction?", "use your judgment", "make it fit".
+Install nah-mean as an intent alignment layer. When trigger phrases appear, pause target-task execution and produce an execution contract. Trigger phrases include Korean "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "알아서 잘", "알잘딱", Korean initial-consonant aliases like "ㅁㅁㅇ", "ㅁㅁㅇㅈㅇㅈ", "ㅇㄴㄲㅇㅈ", "ㅇㅂㅎㅁㅈ", "ㅇㅇㅅㅈ", "ㅇㅈㄸ", and English "you know what I mean?", "get the vibe?", "get the direction?", "use your judgment", "make it fit".
 
 Execution contract must include explicit request, inferred intent, failure modes, execution criteria, defaults, and key uncertainty. Ask at most 1 to 3 narrowing questions. Wait for confirmation unless fast mode is requested.
 
-Fast mode triggers include "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", and "proceed without asking". In fast mode, state one short alignment and execute.
+Fast mode triggers include "바로 해", "확인 생략", "질문하지 말고 진행", Korean initial aliases "ㅂㄹㅎ", "ㅎㅇㅅㄹ", "ㅈㅁㅎㅈㅁㄱㅈㅎ", English "just do it", "skip confirmation", and "proceed without asking". In fast mode, state one short alignment and execute.
 
-Post-work correction trigger includes Korean "감다뒤". When it appears after a result, restate the intent being optimized, name where the result missed the user's intended sight, propose the corrected standard and route, then wait before rework unless the user explicitly says to proceed.
+Post-work correction trigger includes Korean "감다뒤" and "ㄱㄷㄷ". When it appears after a result, restate the intent being optimized, name where the result missed the user's intended sight, propose the corrected standard and route, then wait before rework unless the user explicitly says to proceed.
 
-Positive alignment feedback trigger includes Korean "감다살". When it appears after alignment or a result, restate the intent or standard that matched, reinforce that preference in runtime state, and do not claim durable memory unless durable storage is updated.
+Positive alignment feedback trigger includes Korean "감다살" and "ㄱㄷㅅ". When it appears after alignment or a result, restate the intent or standard that matched, reinforce that preference in runtime state, and do not claim durable memory unless durable storage is updated.
 
 Do not call target-task tools before alignment completes. Reading durable preferences is allowed only if the framework provides such storage and policy allows it.
 ```

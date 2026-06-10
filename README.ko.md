@@ -8,7 +8,7 @@
 
 nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignment skill이다. 사용자가 모호하지만 높은 품질을 기대하는 요청을 했을 때 바로 실행하지 않고, 명시 요청과 암묵적 품질 기준을 짧게 정리한 뒤 확인을 받고 진행한다. 확인 뒤에는 `알잘딱` route로 Direct, Edit, Build, Research, Design, QA, Safety Gate 중 최소 적합 executor를 고른다. 작업 후 사용자가 `감다뒤`라고 말하면, 이전 작업 의도를 다시 말하고 서로의 sight를 맞춘 뒤 재작업 기준을 잡는다. `감다살`은 의도가 정확히 표현됐다는 positive feedback으로 보고 해당 기준을 memory에 강화한다.
 
-사용자가 `뭔말알?`, `뭔말인지 알지?`, `이 느낌 알지?`, `이 방향 맞지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현을 붙일 때 쓴다. `감다뒤`와 `감다살`은 실행 전 trigger가 아니라 작업 후 feedback trigger다.
+사용자가 `뭔말알?`, `뭔말인지 알지?`, `이 느낌 알지?`, `이 방향 맞지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현이나 `ㅁㅁㅇ`, `ㅇㄴㄲㅇㅈ`, `ㅇㅇㅅㅈ`, `ㅇㅈㄸ` 같은 초성 alias를 붙일 때 쓴다. `감다뒤`/`ㄱㄷㄷ`와 `감다살`/`ㄱㄷㅅ`은 실행 전 trigger가 아니라 작업 후 feedback trigger다.
 
 ## 한눈에 보기
 
@@ -19,7 +19,7 @@ nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignme
 | 핵심 파일 | `skills/nah-mean/SKILL.md` |
 | 지원 대상 | Codex, Claude Code, Agent Skills 호환 클라이언트, prompt-only agent |
 | 언어 | 한국어와 영어 |
-| 현재 릴리스 | `v0.4.0` |
+| 현재 릴리스 | `v0.5.0` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## 뭔말알-알잘딱-Driven
@@ -36,18 +36,18 @@ nah-mean은 Codex, Claude Code, 일반 agent에 붙일 수 있는 intent alignme
 
 ## 이런 경우 사용
 
-- 프롬프트가 `뭔말알?`, `이 느낌 알지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 같은 표현으로 끝남.
+- 프롬프트가 `뭔말알?`, `이 느낌 알지?`, `알아서 잘`, `알잘딱`, `찰떡같이` 또는 `ㅁㅁㅇ`, `ㅇㄴㄲㅇㅈ`, `ㅇㅇㅅㅈ`, `ㅇㅈㄸ` 같은 초성 alias로 끝남.
 - 디자인, 글쓰기, 리서치, 기획, 발표자료, 프롬프트/agent 설계, 코드 구조처럼 취향과 맥락이 중요한 작업.
 - 바로 실행하면 톤, 깊이, 독자, 형식 해석이 어긋나 재작업이 생길 가능성이 큼.
 - 파일 수정이나 도구 호출 전에 agent가 가정, 실패 방향, 실행 기준을 먼저 말해주길 원함.
 - 확인 뒤에는 agent가 Direct/Edit/Build/Research/Design/QA 중 맞는 실행 route를 알아서 고르길 원함.
-- 작업 후 결과가 마음에 안 들어 `감다뒤`라고 했을 때 agent가 변명이나 즉시 땜질 대신 의도 재정렬부터 하길 원함.
-- 작업 후 `감다살`이라고 했을 때 정확히 맞은 해석을 agent가 memory 후보로 강화하길 원함.
+- 작업 후 결과가 마음에 안 들어 `감다뒤` 또는 `ㄱㄷㄷ`라고 했을 때 agent가 변명이나 즉시 땜질 대신 의도 재정렬부터 하길 원함.
+- 작업 후 `감다살` 또는 `ㄱㄷㅅ`라고 했을 때 정확히 맞은 해석을 agent가 memory 후보로 강화하길 원함.
 
 ## 이런 경우 사용하지 않음
 
 - `date` 실행, 변수명 변경처럼 정확하고 낮은 위험의 작업.
-- 사용자가 `바로 해`, `확인 생략`, `질문하지 말고 진행`이라고 명시함.
+- 사용자가 `바로 해`, `확인 생략`, `질문하지 말고 진행` 또는 `ㅂㄹㅎ`, `ㅎㅇㅅㄹ`, `ㅈㅁㅎㅈㅁㄱㅈㅎ`라고 명시함.
 - 보안, 법률, 결제, 삭제, 배포처럼 별도 확인이 필요한 작업. 이 skill은 안전 확인을 대체하지 않음.
 
 ## 예시
@@ -192,7 +192,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 고정 버전:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.5.0 --agent codex --scope user
 ```
 
 로컬 checkout:
@@ -266,20 +266,25 @@ Fast mode trigger:
 - `바로 해`
 - `확인 생략`
 - `질문하지 말고 진행`
+- `ㅂㄹㅎ`
+- `ㅎㅇㅅㄹ`
+- `ㅈㅁㅎㅈㅁㄱㅈㅎ`
 
 Fast mode는 짧게 해석하고 알잘딱 route를 고른 뒤 바로 실행한다.
 
 Post-work correction trigger:
 
 - `감다뒤`
+- `ㄱㄷㄷ`
 
-`감다뒤`는 작업 후 결과가 마음에 안 들 때 쓰는 키워드다. agent는 이전 결과를 방어하거나 바로 땜질하지 않는다. 먼저 자신이 잡았던 의도, 어긋난 지점, 다시 맞출 sight, 재작업 기준, route를 짧게 말한 뒤 확인을 받고 다시 작업한다.
+`감다뒤`와 `ㄱㄷㄷ`는 작업 후 결과가 마음에 안 들 때 쓰는 키워드다. agent는 이전 결과를 방어하거나 바로 땜질하지 않는다. 먼저 자신이 잡았던 의도, 어긋난 지점, 다시 맞출 sight, 재작업 기준, route를 짧게 말한 뒤 확인을 받고 다시 작업한다.
 
 Positive alignment feedback trigger:
 
 - `감다살`
+- `ㄱㄷㅅ`
 
-`감다살`은 작업 후 의도나 기준이 정확히 표현됐을 때 쓰는 키워드다. agent는 단순 칭찬으로 처리하지 않는다. 무엇이 맞았는지, 어떤 기준을 강화할지, memory에 어떻게 반영할지, 다음 작업에 어떻게 적용할지 짧게 말한다.
+`감다살`과 `ㄱㄷㅅ`는 작업 후 의도나 기준이 정확히 표현됐을 때 쓰는 키워드다. agent는 단순 칭찬으로 처리하지 않는다. 무엇이 맞았는지, 어떤 기준을 강화할지, memory에 어떻게 반영할지, 다음 작업에 어떻게 적용할지 짧게 말한다.
 
 ## 비교
 
@@ -360,7 +365,7 @@ find skills/nah-mean -maxdepth 3 -type f -print
 
 ## 검증
 
-마지막 검증일: 2026-05-28.
+마지막 검증일: 2026-06-10.
 
 | Check | Result |
 | --- | --- |

@@ -8,7 +8,7 @@ English | [한국어](README.ko.md)
 
 nah-mean is a portable intent alignment skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, turns the user's explicit request and implied quality bar into a compact execution contract, and then chooses the smallest fitting executor route after confirmation unless fast mode is requested.
 
-Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`. For Korean users, `감다뒤` is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework. `감다살` is positive alignment feedback: when intent was captured accurately, the agent reinforces that standard in memory.
+Use it when a user says things like `you know what I mean?`, `get the vibe?`, `use your judgment`, `make it fit`, or `something like this`. For Korean users, full triggers such as `뭔말알?`, `알잘딱`, `감다뒤`, and `감다살` also work through initial-consonant aliases such as `ㅁㅁㅇ`, `ㅇㅈㄸ`, `ㄱㄷㄷ`, and `ㄱㄷㅅ`. `감다뒤`/`ㄱㄷㄷ` is a post-work correction trigger: after a disliked result, the agent restates its original intent and realigns shared sight before rework. `감다살`/`ㄱㄷㅅ` is positive alignment feedback: when intent was captured accurately, the agent reinforces that standard in memory.
 
 ## At A Glance
 
@@ -19,7 +19,7 @@ Use it when a user says things like `you know what I mean?`, `get the vibe?`, `u
 | Main artifact | `skills/nah-mean/SKILL.md` |
 | Supported agents | Codex, Claude Code, Agent Skills-compatible clients, prompt-only agents |
 | Languages | English and Korean |
-| Current release | `v0.4.0` |
+| Current release | `v0.5.0` |
 | AI discovery | [llms.txt](llms.txt), [llms-full.txt](llms-full.txt) |
 
 ## Light Align, Then Dispatch
@@ -28,8 +28,8 @@ nah-mean is not a planning layer by default.
 
 - Light align: state intent, watchout, and standard in a few lines.
 - Context-fit dispatch: after confirmation, choose Direct, Edit, Build, Research, Design, QA, or Safety Gate.
-- Post-work correction: when a Korean user says `감다뒤` after a result, realign the missed intent before rework.
-- Positive feedback reinforcement: when a Korean user says `감다살`, reinforce the matched intent in runtime memory.
+- Post-work correction: when a Korean user says `감다뒤` or `ㄱㄷㄷ` after a result, realign the missed intent before rework.
+- Positive feedback reinforcement: when a Korean user says `감다살` or `ㄱㄷㅅ`, reinforce the matched intent in runtime memory.
 - Goal: reduce prompt misreads with less user-visible alignment overhead.
 
 Tradeoff: nah-mean adds a small alignment step and skill context. It is meant for ambiguous work where that upfront cost is cheaper than polished rework.
@@ -37,12 +37,13 @@ Tradeoff: nah-mean adds a small alignment step and skill context. It is meant fo
 ## Use It When
 
 - A prompt ends with `you know what I mean?`, `get the vibe?`, `make it fit`, or similar intent-checking language.
+- A Korean prompt uses initial-consonant aliases such as `ㅁㅁㅇ`, `ㅇㄴㄲㅇㅈ`, `ㅇㅇㅅㅈ`, or `ㅇㅈㄸ`.
 - Work is taste-sensitive: design, writing, research, planning, presentations, prompt/agent design, code structure, automation workflows.
 - Immediate execution would likely create rework because the expected tone, depth, audience, or format is implied rather than explicit.
 - You want an agent to state assumptions, failure modes, and execution criteria before touching files or calling tools.
 - You want the agent to choose the appropriate execution route after alignment instead of asking for an implementation plan.
-- A Korean user says `감다뒤` after a result and expects the agent to realign intent instead of defending or patching immediately.
-- A Korean user says `감다살` after a result and expects the agent to remember what interpretation or standard was correct.
+- A Korean user says `감다뒤`/`ㄱㄷㄷ` after a result and expects the agent to realign intent instead of defending or patching immediately.
+- A Korean user says `감다살`/`ㄱㄷㅅ` after a result and expects the agent to remember what interpretation or standard was correct.
 
 ## Do Not Use It When
 
@@ -192,7 +193,7 @@ gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user
 Pinned release:
 
 ```bash
-gh skill install handlecusion/nah-mean nah-mean@v0.4.0 --agent codex --scope user
+gh skill install handlecusion/nah-mean nah-mean@v0.5.0 --agent codex --scope user
 ```
 
 Local checkout:
@@ -267,18 +268,21 @@ Fast mode triggers:
 - `just do it`
 - `skip confirmation`
 - `proceed without asking`
+- Korean aliases: `ㅂㄹㅎ`, `ㅎㅇㅅㄹ`, `ㅈㅁㅎㅈㅁㄱㅈㅎ`
 
 Fast mode gives one short alignment, chooses the route, then executes.
 
 Post-work correction trigger:
 
 - `감다뒤`
+- `ㄱㄷㄷ`
 
 When this appears after a result, the agent should restate the intent it was optimizing for, name where the result missed the user's intended sight, propose a corrected standard and route, then wait before rework unless the user explicitly asks to proceed.
 
 Positive alignment feedback trigger:
 
 - `감다살`
+- `ㄱㄷㅅ`
 
 When this appears after alignment or a result, the agent should restate what intent or standard matched, reinforce that preference in runtime memory, and avoid durable memory claims unless a real durable store is updated.
 
@@ -361,7 +365,7 @@ This skill package has no executable scripts. It is instruction/reference conten
 
 ## Tested With
 
-Last verified: 2026-05-28.
+Last verified: 2026-06-10.
 
 | Check | Result |
 | --- | --- |

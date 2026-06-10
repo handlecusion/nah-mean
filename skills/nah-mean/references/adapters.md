@@ -22,14 +22,31 @@ triggers:
   korean:
     - "뭔말알?"
     - "뭔말인지 알지?"
+    - "무슨 느낌인지 알지?"
     - "이 느낌 알지?"
+    - "이 방향 알지?"
     - "이 방향 맞지?"
+    - "이런 느낌으로"
     - "감 잡았지?"
     - "대충 이런 거"
     - "알아서 잘"
     - "알잘딱"
     - "찰떡같이"
     - "내 의도 알겠지?"
+  korean_initials:
+    - "ㅁㅁㅇ"
+    - "ㅁㅁㅇㅈㅇㅈ"
+    - "ㅁㅅㄴㄲㅇㅈㅇㅈ"
+    - "ㅇㄴㄲㅇㅈ"
+    - "ㅇㅂㅎㅇㅈ"
+    - "ㅇㅂㅎㅁㅈ"
+    - "ㅇㄹㄴㄲㅇㄹ"
+    - "ㄱㅈㅇㅈ"
+    - "ㄷㅊㅇㄹㄱ"
+    - "ㅇㅇㅅㅈ"
+    - "ㅇㅈㄸ"
+    - "ㅊㄸㄱㅇ"
+    - "ㄴㅇㄷㅇㄱㅈ"
   english:
     - "you know what I mean?"
     - "get the vibe?"
@@ -46,6 +63,10 @@ fast_mode_triggers:
     - "바로 해"
     - "확인 생략"
     - "질문하지 말고 진행"
+  korean_initials:
+    - "ㅂㄹㅎ"
+    - "ㅎㅇㅅㄹ"
+    - "ㅈㅁㅎㅈㅁㄱㅈㅎ"
   english:
     - "just do it"
     - "skip confirmation"
@@ -53,9 +74,13 @@ fast_mode_triggers:
 post_work_correction_triggers:
   korean:
     - "감다뒤"
+  korean_initials:
+    - "ㄱㄷㄷ"
 positive_alignment_feedback_triggers:
   korean:
     - "감다살"
+  korean_initials:
+    - "ㄱㄷㅅ"
 memory_boundary: Runtime preference memory is separate from durable project memory.
 ```
 
@@ -64,7 +89,7 @@ memory_boundary: Runtime preference memory is separate from durable project memo
 Copy this into any agent framework:
 
 ```text
-When a user request includes "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "get the direction?", "something like this", "use your judgment", "handle it cleanly", or "make it fit", do not execute immediately.
+When a user request includes "뭔말알?", "뭔말인지 알지?", "무슨 느낌인지 알지?", "이 느낌 알지?", "이 방향 알지?", "이 방향 맞지?", "이런 느낌으로", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", Korean initial-consonant aliases like "ㅁㅁㅇ", "ㅁㅁㅇㅈㅇㅈ", "ㅁㅅㄴㄲㅇㅈㅇㅈ", "ㅇㄴㄲㅇㅈ", "ㅇㅂㅎㅇㅈ", "ㅇㅂㅎㅁㅈ", "ㅇㄹㄴㄲㅇㄹ", "ㄱㅈㅇㅈ", "ㄷㅊㅇㄹㄱ", "ㅇㅇㅅㅈ", "ㅇㅈㄸ", "ㅊㄸㄱㅇ", "ㄴㅇㄷㅇㄱㅈ", or English equivalents like "you know what I mean?", "get the vibe?", "get the direction?", "something like this", "use your judgment", "handle it cleanly", or "make it fit", do not execute immediately.
 
 First create a lightweight intent read:
 1. Identify the explicit request and inferred quality bar.
@@ -74,11 +99,11 @@ First create a lightweight intent read:
 
 Then wait for confirmation before execution.
 
-If the user says "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking", give a one-sentence alignment, choose the route, and execute immediately.
+If the user says "바로 해", "확인 생략", "질문하지 말고 진행", Korean initial aliases like "ㅂㄹㅎ", "ㅎㅇㅅㄹ", "ㅈㅁㅎㅈㅁㄱㅈㅎ", or English phrases like "just do it", "skip confirmation", or "proceed without asking", give a one-sentence alignment, choose the route, and execute immediately.
 
-If the user says "감다뒤" after seeing the result, treat it as a post-work correction trigger. Do not defend the previous result or immediately patch it. First restate the intent you thought you were optimizing for, name where the result missed the user's intended sight, propose a corrected execution standard and route, then wait for confirmation before rework unless the user explicitly says to proceed.
+If the user says "감다뒤" or "ㄱㄷㄷ" after seeing the result, treat it as a post-work correction trigger. Do not defend the previous result or immediately patch it. First restate the intent you thought you were optimizing for, name where the result missed the user's intended sight, propose a corrected execution standard and route, then wait for confirmation before rework unless the user explicitly says to proceed.
 
-If the user says "감다살" after alignment or a result, treat it as a positive alignment feedback trigger. Do not treat it as generic praise. First restate the intent or standard that was captured correctly, name the preference to reinforce, update current-session runtime preference memory, and apply it to the next relevant work unless current instructions conflict.
+If the user says "감다살" or "ㄱㄷㅅ" after alignment or a result, treat it as a positive alignment feedback trigger. Do not treat it as generic praise. First restate the intent or standard that was captured correctly, name the preference to reinforce, update current-session runtime preference memory, and apply it to the next relevant work unless current instructions conflict.
 
 Maintain runtime preference memory from corrections, but do not claim durable persistence unless the framework provides it. Durable memory or wiki writes require explicit user request, repeated preference, or project-level rule.
 ```
@@ -114,7 +139,7 @@ Use one of these patterns:
 Suggested project snippet:
 
 ```text
-Use nah-mean intent alignment when a user ends a request with "뭔말알?", "you know what I mean?", "get the vibe?", or similar phrases. First give a compact intent read, failure risk, execution standard, and route. Ask at most 1 to 3 narrowing questions. Wait for confirmation unless the user says to proceed without asking.
+Use nah-mean intent alignment when a user ends a request with "뭔말알?", "ㅁㅁㅇ", "ㅇㅈㄸ", "you know what I mean?", "get the vibe?", or similar phrases. First give a compact intent read, failure risk, execution standard, and route. Ask at most 1 to 3 narrowing questions. Wait for confirmation unless the user says to proceed without asking.
 ```
 
 ## Hermes-Like or Unknown Agent Adapter
@@ -146,8 +171,10 @@ Given a triggered request, a compliant agent should:
 - ask no more than 1 to 3 questions
 - wait for confirmation unless fast mode is triggered
 - handle "감다뒤" as a post-work correction trigger, not a pre-execution trigger
+- handle "ㄱㄷㄷ" as the initial-consonant alias for "감다뒤"
 - realign original intent, missed sight, corrected standard, and route before rework
 - handle "감다살" as positive alignment feedback, not generic praise
+- handle "ㄱㄷㅅ" as the initial-consonant alias for "감다살"
 - reinforce matched intent or standard in runtime memory
 - preserve current instruction over old memory
 - not claim durable memory without a real storage mechanism

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>nah-mean - Portable Intent Alignment Skill</title>
-    <meta name="description" content="nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous requests, aligns intent, routes execution, and supports Korean 감다뒤/감다살 post-work feedback.">
+    <meta name="description" content="nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous requests, aligns intent, routes execution, and supports Korean 초성 aliases plus 감다뒤/감다살 post-work feedback.">
     <link rel="canonical" href="https://handlecusion.github.io/nah-mean/">
     <script type="application/ld+json">
       {
@@ -14,12 +14,12 @@
             "@type": "SoftwareSourceCode",
             "@id": "https://github.com/handlecusion/nah-mean#software",
             "name": "nah-mean",
-            "description": "Portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents, including Korean 감다뒤 correction recovery and 감다살 positive feedback reinforcement.",
+            "description": "Portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents, including Korean initial-consonant trigger aliases, 감다뒤 correction recovery, and 감다살 positive feedback reinforcement.",
             "codeRepository": "https://github.com/handlecusion/nah-mean",
             "license": "https://github.com/handlecusion/nah-mean/blob/main/LICENSE",
             "programmingLanguage": "Markdown",
             "runtimePlatform": ["Codex", "Claude Code", "Agent Skills-compatible clients", "Generic AI agents"],
-            "version": "0.4.0",
+            "version": "0.5.0",
             "author": {
               "@type": "Person",
               "name": "handlecusion",
@@ -27,14 +27,14 @@
             },
             "sameAs": [
               "https://github.com/handlecusion/nah-mean",
-              "https://github.com/handlecusion/nah-mean/releases/tag/v0.4.0"
+              "https://github.com/handlecusion/nah-mean/releases/tag/v0.5.0"
             ]
           },
           {
             "@type": "CreativeWork",
             "@id": "https://handlecusion.github.io/nah-mean/#work",
             "name": "nah-mean intent alignment contract",
-            "description": "Instruction contract that helps AI agents align user intent, choose a fitting executor route before ambiguous work, and handle Korean 감다뒤/감다살 post-work feedback.",
+            "description": "Instruction contract that helps AI agents align user intent, choose a fitting executor route before ambiguous work, and handle Korean initial-consonant aliases plus 감다뒤/감다살 post-work feedback.",
             "inLanguage": ["en", "ko"],
             "url": "https://handlecusion.github.io/nah-mean/",
             "license": "https://github.com/handlecusion/nah-mean/blob/main/LICENSE",
@@ -113,7 +113,7 @@
   <body>
     <main>
       <h1>nah-mean</h1>
-      <p class="summary">nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, aligns intent, chooses a route, executes after confirmation, uses Korean <code>감다뒤</code> as post-work correction recovery, and uses <code>감다살</code> as positive feedback reinforcement.</p>
+      <p class="summary">nah-mean is a portable light-align and context-fit execution dispatch skill for Codex, Claude Code, and generic agents. It pauses ambiguous high-expectation requests, aligns intent, chooses a route, executes after confirmation, accepts Korean aliases like <code>ㅁㅁㅇ</code> and <code>ㅇㅈㄸ</code>, uses <code>감다뒤</code>/<code>ㄱㄷㄷ</code> as post-work correction recovery, and uses <code>감다살</code>/<code>ㄱㄷㅅ</code> as positive feedback reinforcement.</p>
 
       <h2>Install</h2>
       <pre><code>gh skill install handlecusion/nah-mean nah-mean --agent codex --scope user</code></pre>
@@ -121,10 +121,11 @@
       <h2>Use It When</h2>
       <div class="grid">
         <div class="box">A user says <code>you know what I mean?</code>, <code>get the vibe?</code>, or <code>use your judgment</code>.</div>
+        <div class="box">A Korean user types initial aliases like <code>ㅁㅁㅇ</code>, <code>ㅇㅈㄸ</code>, <code>ㄱㄷㄷ</code>, or <code>ㄱㄷㅅ</code>.</div>
         <div class="box">A request depends on implied tone, quality bar, audience, or failure modes.</div>
         <div class="box">An agent should align, choose Direct/Edit/Build/Research/Design/QA, then edit files, write content, design UI, or call tools.</div>
-        <div class="box">A Korean user says <code>감다뒤</code> after a result and expects intent realignment before rework.</div>
-        <div class="box">A Korean user says <code>감다살</code> after a result and expects matched intent to be reinforced in memory.</div>
+        <div class="box">A Korean user says <code>감다뒤</code> or <code>ㄱㄷㄷ</code> after a result and expects intent realignment before rework.</div>
+        <div class="box">A Korean user says <code>감다살</code> or <code>ㄱㄷㅅ</code> after a result and expects matched intent to be reinforced in memory.</div>
       </div>
 
       <h2>Important Links</h2>
@@ -133,7 +134,7 @@
         <li><a href="https://github.com/handlecusion/nah-mean/blob/main/README.ko.md">Korean README</a></li>
         <li><a href="https://github.com/handlecusion/nah-mean/blob/main/skills/nah-mean/SKILL.md">SKILL.md</a></li>
         <li><a href="https://github.com/handlecusion/nah-mean/blob/main/llms.txt">llms.txt</a></li>
-        <li><a href="https://github.com/handlecusion/nah-mean/releases/tag/v0.4.0">v0.4.0 release</a></li>
+        <li><a href="https://github.com/handlecusion/nah-mean/releases/tag/v0.5.0">v0.5.0 release</a></li>
       </ul>
     </main>
   </body>

@@ -1,6 +1,7 @@
 ---
 name: nah-mean
-description: Lightweight intent alignment and context-fit execution dispatch for ambiguous or high-expectation requests. Use when a user says Korean triggers like "뭔말알?", "뭔말인지 알지?", "이 느낌 알지?", "이 방향 맞지?", "감 잡았지?", "대충 이런 거", "알아서 잘", "알잘딱", "찰떡같이", "내 의도 알겠지?", or English equivalents like "you know what I mean?", "get the vibe?", "you get the direction?", "make it fit", "use your judgment", "handle it cleanly", "you know the intent?", especially for design, writing, research, planning, prompt/agent design, code structure, automation workflows, presentations, business plans, and other work where executing immediately risks rework. Also use when a Korean user says "감다뒤" after work to restate the original intent and realign the shared sight before rework, or "감다살" to reinforce an accurately captured intent into memory.
+description: "Lightweight intent alignment and execution dispatch for ambiguous high-expectation requests. Use on Korean triggers/aliases: 뭔말알/ㅁㅁㅇ, 뭔말인지 알지/ㅁㅁㅇㅈㅇㅈ, 무슨 느낌인지 알지/ㅁㅅㄴㄲㅇㅈㅇㅈ, 이 느낌 알지/ㅇㄴㄲㅇㅈ, 이 방향 알지/ㅇㅂㅎㅇㅈ, 이 방향 맞지/ㅇㅂㅎㅁㅈ, 이런 느낌으로/ㅇㄹㄴㄲㅇㄹ, 감 잡았지/ㄱㅈㅇㅈ, 대충 이런 거/ㄷㅊㅇㄹㄱ, 알아서 잘/ㅇㅇㅅㅈ, 알잘딱/ㅇㅈㄸ, 찰떡같이/ㅊㄸㄱㅇ, 내 의도 알겠지/ㄴㅇㄷㅇㄱㅈ. English triggers include you know what I mean, get the vibe/direction, make it fit, use your judgment, handle it cleanly. Fast mode: 바로 해/ㅂㄹㅎ, 확인 생략/ㅎㅇㅅㄹ, 질문하지 말고 진행/ㅈㅁㅎㅈㅁㄱㅈㅎ. After work: 감다뒤/ㄱㄷㄷ for correction recovery, 감다살/ㄱㄷㅅ for positive alignment feedback."
+license: MIT
 ---
 
 # Nah Mean
@@ -14,7 +15,7 @@ Use this skill in four gears:
 
 ## Core Behavior
 
-When triggered, do not execute target work immediately unless the user asks for fast execution with phrases like "바로 해", "확인 생략", "질문하지 말고 진행", "just do it", "skip confirmation", or "proceed without asking".
+When triggered, do not execute target work immediately unless the user asks for fast execution with phrases like "바로 해", "확인 생략", "질문하지 말고 진행", Korean initial aliases like "ㅂㄹㅎ", "ㅎㅇㅅㄹ", "ㅈㅁㅎㅈㅁㄱㅈㅎ", or English phrases like "just do it", "skip confirmation", or "proceed without asking".
 
 Default mode:
 
@@ -31,7 +32,7 @@ Fast mode:
 
 Post-work correction mode:
 
-When the user says "감다뒤" after seeing a result, treat it as a correction trigger, not as a new pre-execution alignment trigger.
+When the user says "감다뒤" or "ㄱㄷㄷ" after seeing a result, treat it as a correction trigger, not as a new pre-execution alignment trigger.
 
 1. Do not defend the previous result or patch immediately.
 2. Restate the intent you thought you were optimizing for.
@@ -41,7 +42,7 @@ When the user says "감다뒤" after seeing a result, treat it as a correction t
 
 Positive alignment feedback mode:
 
-When the user says "감다살" after an alignment or result, treat it as a positive feedback trigger that the user's intent was accurately expressed.
+When the user says "감다살" or "ㄱㄷㅅ" after an alignment or result, treat it as a positive feedback trigger that the user's intent was accurately expressed.
 
 1. Briefly acknowledge the matched intent without praise or celebration.
 2. Restate the exact interpretation, standard, or preference that should be reinforced.

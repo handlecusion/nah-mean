@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.5.0 - 2026-06-10
+
+### Added
+
+- Added Korean initial-consonant trigger aliases for intent alignment, fast mode, post-work correction, and positive feedback.
+- Added docs coverage for aliases such as `ㅁㅁㅇ`, `ㅇㅈㄸ`, `ㄱㄷㄷ`, and `ㄱㄷㅅ`.
+
 ## v0.4.0 - 2026-05-31
 
 ### Added

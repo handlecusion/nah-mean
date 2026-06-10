@@ -19,12 +19,12 @@ Use two gears before execution, one recovery gear after a disliked result, and o
    - Decide whether the task needs direct response, file edits, building, research, design work, QA, or a safety gate.
 
 3. Gamdadwi recovery
-   - When a Korean user says `감다뒤` after a result, treat it as post-work correction.
+   - When a Korean user says `감다뒤` or `ㄱㄷㄷ` after a result, treat it as post-work correction.
    - Do not defend the previous result or immediately patch it.
    - Restate the intent the agent thought it was optimizing for, where the result missed the user's intended sight, the corrected standard, and the next route.
 
 4. Gamdasal reinforcement
-   - When a Korean user says `감다살`, treat it as positive alignment feedback.
+   - When a Korean user says `감다살` or `ㄱㄷㅅ`, treat it as positive alignment feedback.
    - Do not respond as if it is generic praise.
    - Restate what intent, standard, or preference was captured correctly and reinforce it in runtime preference memory.
    - Write durable memory only when the user explicitly asks, the preference repeats, or project rules require it.
@@ -50,15 +50,33 @@ Activate when the user uses phrases like:
 - sound good?
 - ok?
 
+Korean initial-consonant aliases also activate their matching full trigger phrases:
+
+- ㅁㅁㅇ
+- ㅁㅁㅇㅈㅇㅈ
+- ㅁㅅㄴㄲㅇㅈㅇㅈ
+- ㅇㄴㄲㅇㅈ
+- ㅇㅂㅎㅇㅈ
+- ㅇㅂㅎㅁㅈ
+- ㅇㄹㄴㄲㅇㄹ
+- ㄱㅈㅇㅈ
+- ㄷㅊㅇㄹㄱ
+- ㅇㅇㅅㅈ
+- ㅇㅈㄸ
+- ㅊㄸㄱㅇ
+- ㄴㅇㄷㅇㄱㅈ
+
 Post-work correction trigger:
 
 - 감다뒤
+- ㄱㄷㄷ
 
 This is not a pre-execution trigger. It means the user disliked the result and wants intent realignment before rework.
 
 Positive alignment feedback trigger:
 
 - 감다살
+- ㄱㄷㅅ
 
 This means the user confirms the agent expressed the user's intent accurately. Reinforce the matched interpretation as a runtime memory candidate for future relevant work.
 
@@ -191,14 +209,14 @@ Got it. This is not a feature explanation. The key artifact is a copy-ready plug
 
 Mode D, Gamdadwi Recovery:
 
-- Use when a Korean user says `감다뒤` after seeing a result.
+- Use when a Korean user says `감다뒤` or `ㄱㄷㄷ` after seeing a result.
 - Do not defend or immediately patch the previous result.
 - First state: previous intent, missed sight, corrected standard, and next route.
 - Rework after confirmation unless the user explicitly asks to proceed.
 
 Mode E, Gamdasal Reinforcement:
 
-- Use when a Korean user says `감다살` after alignment or a result.
+- Use when a Korean user says `감다살` or `ㄱㄷㅅ` after alignment or a result.
 - Treat it as positive feedback that the intent was captured accurately.
 - First state: matched intent, reinforced standard, memory update, and next application.
 - Update current-session runtime preference memory.

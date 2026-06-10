@@ -27,6 +27,13 @@ Use naturally:
 이 레포 분석해서 어떤 오픈소스인지 설명해줘. 뭔말알?
 ```
 
+Korean initial-consonant aliases also trigger the same behavior:
+
+```text
+이 레포 분석해서 어떤 오픈소스인지 설명해줘. ㅁㅁㅇ
+ㅇㅈㄸ release 까지 ㄱㄱ
+```
+
 Or explicitly:
 
 ```text
